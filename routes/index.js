@@ -46,13 +46,19 @@ router.get('/register/confirmation', function(req, res, next){
 	var postcode = req.query.postcode;
 	var phone = req.query.phoneNumber;
 	
-	console.log(req.query.firstname);
-	var query = client.query("INSERT INTO Users (username, fname, lname, password, email, address, city, postcode, phone) VALUES ('" + username + "' , '" + fname + "' , '" + lname + "' , '" + password + "' , '" + email + "' , '" + address + "' , '" + city + "' , '" + postcode + "' , '" + phone + "');");
 	//Very annoying that I can't put new lines in this command otherwise it cant run because it sees it as an unexpected token
-	//
+	var query = client.query("INSERT INTO Users (username, fname, lname, password, email, address, city, postcode, phone) VALUES ('" + username + "' , '" + fname + "' , '" + lname + "' , '" + password + "' , '" + email + "' , '" + address + "' , '" + city + "' , '" + postcode + "' , '" + phone + "');", function(error, result){
+		done();
+		if (error){
+			console.error('Failed to execute INSERT query');
+			console.error(error);
+			return;
+			}
+		console.log(result);
+	});
+	//Very annoying that I can't put new lines in this command otherwise it cant run because it sees it as an unexpected token
 	console.log(query.text);	
 	res.render('regconfirm', {title: 'Confirmation!'});
-	console.log("Something happened");
 });
 
 module.exports = router;

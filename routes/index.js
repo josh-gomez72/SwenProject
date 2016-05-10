@@ -35,6 +35,10 @@ router.get('/register', function(req, res, next){
 	res.render('register', {title: 'Register User'});
 });
 
+router.get('/login', function(req, res, next){
+	res.render('login', {title: 'Login'});
+});
+
 router.get('/register/confirmation', function(req, res, next){
 	//res.send(req);
 	var fname = req.query.firstname;

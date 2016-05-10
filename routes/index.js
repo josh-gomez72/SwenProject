@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var pg = require('pg').native;
+var pg = require('pg');
 
 var database = "postgres://gomezjosh:password@depot:5432/SwenGroup9";
 
@@ -26,6 +26,10 @@ pg.connect(database, function(err, client, done){
 		}
 	console.log(result);
 	});
+});
+
+router.get('/register', function(req, res, next){
+	res.render('register', {title: 'Register User'});
 });
 
 module.exports = router;

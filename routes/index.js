@@ -9,7 +9,8 @@ var pg = require('pg'); //used for windows
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Farmers Market' });
+	res.redirect('/login');
+	//res.render('index', { title: 'Farmers Market' });
 });
 
 // pg.connect(database, function(err, client, done){

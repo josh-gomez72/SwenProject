@@ -1,36 +1,35 @@
 var express = require('express');
 var router = express.Router();
-//var pg = require('pg').native; //used for lab machines
-var pg = require('pg'); //used for windows
+var pg = require('pg').native; //used for lab machines
+//var pg = require('pg'); //used for windows
 
-// var database = "postgres://gomezjosh:password@depot:5432/SwenGroup9";
-// var client = new pg.Client(database);
-// client.connect();
+ var database = "postgres://gomezjosh:password@depot:5432/SwenGroup9";
+ var client = new pg.Client(database);
+ client.connect();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	res.redirect('/login');
-	//res.render('index', { title: 'Farmers Market' });
 });
 
-// pg.connect(database, function(err, client, done){
-// 	if(err){
-// 		console.error('Could not connect to the database');
-// 		console.error(err);
-// 		return;
-// 	}
-//
-// 	console.log('Connected to database: SwenGroup9');
-// 	client.query("SELECT * FROM Users;", function(error, result){
-// 	done();
-// 	if (error){
-// 		console.error('Failed to execute query');
-// 		console.error(error);
-// 		return;
-// 		}
-// 	console.log(result);
-// 	});
-// });
+ pg.connect(database, function(err, client, done){
+ 	if(err){
+ 		console.error('Could not connect to the database');
+ 		console.error(err);
+ 		return;
+ 	}
+
+ 	console.log('Connected to database: SwenGroup9');
+ 	client.query("SELECT * FROM Users;", function(error, result){
+ 	done();
+ 	if (error){
+ 		console.error('Failed to execute query');
+ 		console.error(error);
+ 		return;
+ 		}
+ 	console.log(result);
+ 	});
+ });
 
 router.get('/register', function(req, res, next){
 	res.render('register', {title: 'Register User'});
@@ -54,7 +53,7 @@ router.get('/register/confirmation', function(req, res, next){
 	
 	//Very annoying that I can't put new lines in this command otherwise it cant run because it sees it as an unexpected token
 	var query = client.query("INSERT INTO Users (username, fname, lname, password, email, address, city, postcode, phone) VALUES ('" + username + "' , '" + fname + "' , '" + lname + "' , '" + password + "' , '" + email + "' , '" + address + "' , '" + city + "' , '" + postcode + "' , '" + phone + "');", function(error, result){
-		done();
+		//done(); need to call this somehow but not sure how we do proper queries yet
 		if (error){
 			console.error('Failed to execute INSERT query');
 			console.error(error);

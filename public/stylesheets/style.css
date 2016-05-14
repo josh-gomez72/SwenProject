@@ -1,8 +1,85 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+div.tab{
+	background-color:#FFFFFF;
+	padding: 1% 1% 1% 1%;
+}
+span.docCount{
+	float:right;
+	background-color:#B2D490;
 }
 
-a {
-  color: #00B7FF;
+div.slider-size{
+	text-align:center;
+}
+
+.imageUpload {
+	padding: 2% 2% 2% 2%;
+	background-color: #f4ffb9;
+	border-radius: 4px;
+}
+/*img{*/
+	/*margin-top: 5vh;*/
+	/*margin-bottom: 5vh;*/
+/*}*/
+/*body{*/
+	/*background-color: #e4ff90;*/
+/*}*/
+
+/*.well{*/
+	/*background-color: #4a9b05;*/
+/*}*/
+
+/*h1,*/
+/*h2 {*/
+	/*color: #B38014;*/
+/*}*/
+
+/*h3,*/
+/*h4,*/
+/*h5,*/
+/*h6 {*/
+	/*color: #FFFFFF;*/
+/*}*/
+
+/*label {*/
+	/*color: #87C44B;*/
+/*}*/
+
+/* Mobile */
+@media (max-width: 767px) {
+	.slider-size {
+		height: auto;
+	}
+	.slider-size > img {
+		width: 80%;
+	}
+}
+
+/* tablets */
+@media (max-width: 991px) and (min-width: 768px) {
+	.slider-size {
+		height: auto;
+	}
+	.slider-size > img {
+		width: 80%;
+	}
+}
+
+/* laptops */
+@media (max-width: 1023px) and (min-width: 992px) {
+	.slider-size {
+		height: 200px;
+	}
+	.slider-size > img {
+		width: 80%;
+	}
+}
+
+/* desktops */
+@media (min-width: 1024px) {
+	.slider-size {
+		height: 300px;
+	}
+	.slider-size > img {
+		width: 60%;
+	}
 }

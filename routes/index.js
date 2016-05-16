@@ -39,6 +39,15 @@ router.get('/login', function(req, res, next){
 	res.render('login', {title: 'Login'});
 });
 
+router.get('/login/confirmation', function (req, res, next){
+	console.log(req.query)
+	var username = req.query.username;
+	var password = req.query.password;
+	
+	client.query("")	
+	
+});
+
 router.get('/browse/category', function(req, res, next){
 	console.log(req.query.category);
 	var queryString = "SELECT * FROM items WHERE category = '" + req.query.category + "' OR parent_category = '" + req.query.category + "';"

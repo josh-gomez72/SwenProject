@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The Market</title>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+ <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+ <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
+ <!-- <script type="text/javascript" src="../routes/jQuery.js"></script> -->
+</head>
+
+<body>
+    <h1>The Market</h1>
+    <p>New Zealand’s Online Community Farmer's Market</p>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid"> <!-- top nav section -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">The Market</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Browse</a></li>
+                <li><a href="#">Sell</a></li>
+                <li><a href="#">Basket</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            </ul>
+        </div> <!-- Close container fluid div-->
+        <div class="container-fluid search-nav"> <!-- botton nav line -->
+           <form class="form-horizontal" role="search" id="search-form">
+                <div class="form-group">
+                    <div class = "col-md-4">
+                        <input action="/search" type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control" name="section_id">
+                            <option value="all">All Catagories</option>
+                            <option value="bakery">Bakery</option>
+                            <option value="dairy-eggs">Dairy and Eggs</option>
+                            <option value="fruit">Fruit</option>
+                            <option value="vegeables">Vegetables</option>
+                            <option value="other-catagory">Other</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control" name="category_id">
+                            <option value="all">All Locations</option>
+                            <option value="auckland">Auckland</option>
+                            <option value="christchurch">Christchurch</option>
+                            <option value="dunedin">Dunedin</option>
+                            <option value="hamilton">Hamilton</option>
+                            <option value="napier-hastings">Napier-Hastings</option>
+                            <option value="nelson">Nelson</option>
+                            <option value="palmerston-north">Palmerston North</option>
+                            <option value="tauranga">Tauranga</option>
+                            <option value="wellington">Wellington</option>
+                            <option value="other-location">Other</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </nav>

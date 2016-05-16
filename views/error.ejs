@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <script src="../javascripts/jquery-1.12.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
+    <script src="../stylesheets/bootstrap/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+        <h1>The Market</h1>
+        <p>New Zealand’s Online Community Farmer's Market</p>
+        <div id="navbar">
+          <div class="btn"><a href="/" class="button">Browse</a></div>
+          <div class="btn"><a href="/sell" class="button">Sell</a></div>
+          <div class="btn"><a href="/account" class="button">Account</a></div>
+          <div id="basket"><a href="/basket" class="button greyText">Basket</a></div>
+          <div id="login"><a href="/login" class="button">Login</a></div>
+          <div id="register"><a href="/register" class="button">Register</a></div>
+          <div class="searchBar">
+            <form id="searchForm" action="/search" method="get" class="input-group">
+              <div class="selector">
+                <select name="catagory" data-toggle="dropdown">
+                  <option value="all">Search in All Catagories</option>
+                  <option value="vegetables">Search in Vegetables</option>
+                  <option value="fruit">Search in Fruit</option>
+                  <option value="dairy">Search in Dairy and Eggs</option>
+                  <option value="bakery">Search in Bakery</option>
+                  <option value="other">Search in Other</option>
+                </select>
+              </div>
+              <div class="selector">
+                <select name="location" data-toggle="dropdown">
+                  <option value="allLocations">Search in All Locations</option>
+                  <option value="auckland">Search in Auckland</option>
+                  <option value="christchurch">Search in Christchurch</option>
+                  <option value="dunedin">Search in Dunedin</option>
+                  <option value="hamilton">Search in Hamilton</option>
+                  <option value="napierHastings">Search in Napier-Hastings</option>
+              </select>
+            </div>
+            <div class="search">
+              <input type="text" name="search" Placeholder="Search"/>
+            </div>
+            <input id="searchBtn" type="submit" value="Search" class="greyText"/>
+          </form>
+        </div>
+      </div>
+      <h2>Browse</h2>
+      <div class="container">
+        <table>
+          <tr>
+            <td>
+              <div class="vegetables">
+                <h3> <a href="browse/vegetables" class="browseLink greyText">Vegetables</a></h3>
+                <ul>
+                  <li> <a href="browse/beansAndPeas" class="browseLink greyText">Beans and Peas</a></li>
+                  <li> <a href="browse/chilliesAndPeppers" class="browseLink greyText">Chillies and Peppers</a></li>
+                  <li> <a href="browse/cucumberAndZucchini" class="browseLink greyText">Cucumber and Zucchini</a></li>
+                  <li> <a href="browse/herbs" class="browseLink greyText">Herbs</a></li>
+                  <li> <a href="browse/leafyVegetables" class="browseLink greyText">Leafy Vegetables</a></li>
+                  <li> <a href="browse/pumpkinAndSquash" class="browseLink greyText">Pumpkin and Squash</a></li>
+                  <li> <a href="browse/rootVegetables" class="browseLink greyText">Root Vegetables</a></li>
+                  <li> <a href="browse/tomatoes" class="browseLink greyText">Tomatoes</a></li>
+                  <li> <a href="browse/organicVegetables" class="browseLink greyText">Organic Vegetables</a></li>
+                  <li class="other"> <a href="browse/otherVegetables" class="browseLink greyText">Other</a></li>
+                </ul>
+              </div>
+            </td>
+            <td>
+              <div class="fruit">
+                <h3> <a href="browse/fruit" class="browseLink greyText">Fruit</a></h3>
+                <ul>
+                  <li> <a href="browse/applesAndPears" class="browseLink greyText">Apples and Pears</a></li>
+                  <li> <a href="browse/bananas" class="browseLink greyText">Bananas</a></li>
+                  <li> <a href="browse/berries" class="browseLink greyText">Berries</a></li>
+                  <li> <a href="browse/citrus" class="browseLink greyText">Citrus</a></li>
+                  <li> <a href="browse/melons" class="browseLink greyText">Melons</a></li>
+                  <li> <a href="browse/stoneFruit" class="browseLink greyText">Stone Fruit</a></li>
+                  <li> <a href="browse/organicFruit" class="browseLink greyText">Organic Fruit</a></li>
+                  <li class="other"> <a href="browse/otherFruit" class="browseLink greyText">Other</a></li>
+                </ul>
+              </div>
+            </td>
+            <td>
+              <div class="dairy">
+                <h3> <a href="browse/dairyAndEggs" class="browseLink greyText">Dairy and Eggs</a></h3>
+                <ul>
+                  <li> <a href="browse/cheese" class="browseLink greyText">Cheese</a></li>
+                  <li> <a href="browse/eggs" class="browseLink greyText">Eggs</a></li>
+                  <li> <a href="browse/milkAndButter" class="browseLink greyText">Milk and Butter</a></li>
+                  <li> <a href="browse/yogurt" class="browseLink greyText">Yogurt</a></li>
+                  <li> <a href="browse/dairyAlternatives" class="browseLink greyText">Dairy Alternatives</a></li>
+                  <li class="other"> <a href="browse/otherDairy" class="browseLink greyText">Other</a></li>
+                </ul>
+              </div>
+            </td>
+            <td>
+              <div class="bakery">
+                <h3> <a href="browse/bakery" class="browseLink greyText">Bakery</a></h3>
+                <ul>
+                  <li> <a href="browse/bread" class="browseLink greyText">Bread</a></li>
+                  <li> <a href="browse/biscuits" class="browseLink greyText">Biscuits</a></li>
+                  <li> <a href="browse/cakes" class="browseLink greyText">Cakes</a></li>
+                  <li> <a href="browse/pastries" class="browseLink greyText">Pastries</a></li>
+                  <li> <a href="browse/wraps" class="browseLink greyText">Wraps</a></li>
+                  <li class="other"> <a href="browse/otherBakery" class="browseLink greyText">Other</a></li>
+                </ul>
+              </div>
+            </td>
+            <td>
+              <div class="otherCatagory">
+                <h3> <a href="browse/other" class="browseLink greyText">Other</a></h3>
+                <ul>
+                  <li> <a href="browse/antipasto" class="browseLink greyText">Antipasto</a></li>
+                  <li> <a href="browse/drinks" class="browseLink greyText">Drinks</a></li>
+                  <li> <a href="browse/condiments" class="browseLink greyText">Condiments</a></li>
+                  <li> <a href="browse/oilsAndVinegers" class="browseLink greyText">Oils and Vinegars</a></li>
+                  <li> <a href="browse/sauces" class="browseLink greyText">Sauces</a></li>
+                  <li> <a href="browse/spreads" class="browseLink greyText">Spreads</a></li>
+                  <li> <a href="browse/sweetsAndSnacks" class="browseLink greyText">Sweets and Snacks</a></li>
+                  <li class="other"> <a href="browse/other" class="browseLink greyText">Other</a></li>
+                </ul>
+              </div>
+            </td>
+            <td>
+              <div class="location">
+                <h3> <a href="browse/location" class="browseLink greyText">Browse by Location</a></h3>
+                <ul>
+                  <li> <a href="browse/auckland" class="browseLink greyText">Auckland</a></li>
+                  <li> <a href="browse/christchurch" class="browseLink greyText">Christchurch</a></li>
+                  <li> <a href="browse/dunedin" class="browseLink greyText">Dunedin</a></li>
+                  <li> <a href="browse/hamilton" class="browseLink greyText">Hamilton</a></li>
+                  <li> <a href="browse/napierHastings" class="browseLink greyText">Napier-Hastings</a></li>
+                  <li> <a href="browse/nelson" class="browseLink greyText">Nelson</a></li>
+                  <li> <a href="browse/palmerstonNorth" class="browseLink greyText">Palmerston North</a></li>
+                  <li> <a href="browse/tauranga" class="browseLink greyText">Tauranga</a></li>
+                  <li> <a href="browse/wellington" class="browseLink greyText"> Wellington</a></li>
+                  <li class="other"> <a href="browse/otherLocation" class="browseLink greyText">Other</a></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+  </body>
+</html>

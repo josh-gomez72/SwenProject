@@ -58,13 +58,13 @@ router.get('/register/confirmation', function(req, res, next){
 	var fname = req.query.firstname;
 	var lname = req.query.lastname;
 	var username = req.query.username;
-	var password = req.query.password;	
+	var password = req.query.password;
 	var email = req.query.email;
 	var address = req.query.address;
 	var city = req.query.city;
 	var postcode = req.query.postcode;
 	var phone = req.query.phoneNumber;
-	
+
 	//Very annoying that I can't put new lines in this command otherwise it cant run because it sees it as an unexpected token
 	var query = client.query("INSERT INTO Users (username, fname, lname, password, email, address, city, postcode, phone) VALUES ('" + username + "' , '" + fname + "' , '" + lname + "' , '" + password + "' , '" + email + "' , '" + address + "' , '" + city + "' , '" + postcode + "' , '" + phone + "');", function(error, result){
 		//done(); need to call this somehow but not sure how we do proper queries yet
@@ -76,7 +76,7 @@ router.get('/register/confirmation', function(req, res, next){
 		console.log(result);
 	});
 	//Very annoying that I can't put new lines in this command otherwise it cant run because it sees it as an unexpected token
-	console.log(query.text);	
+	console.log(query.text);
 	res.render('regconfirm', {title: 'Confirmation!'});
 });
 

@@ -39,6 +39,20 @@ router.get('/login', function(req, res, next){
 	res.render('login', {title: 'Login'});
 });
 
+router.get('/browse/category', function(req, res, next){
+	console.log(req.query.category);
+	var queryString = "SELECT * FROM items WHERE category = '" + req.query.category + "' OR parent_category = '" + req.query.category + "';"
+	console.log(queryString);
+	var query = client.query(queryString, function (error, result) {
+		if (error){ console.log(error);}
+		else {
+			console.log(result.rows)
+			res.render('browseCategory', {title: 'List of items', resultPlace: result.rows});
+			}
+	}		
+	);
+});
+
 router.get('/register/confirmation', function(req, res, next){
 	//res.send(req);
 	var fname = req.query.firstname;

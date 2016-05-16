@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+	<p>You are logged in as <%= user %>.</p>
+	<p>You have <%= cart %> items in your cart.</p>
+	
+	<form action="addToCartTEST" method="get">	
+		<% for(var i=0; i < list.length; i++) { %>
+			<input type="radio" name="item" value="<%= list[i] %>"><%= list[i].name %>
+		<% } %>
+    <input id="submit" type="submit" value="Add to cart">
+    </form>
+	
+  </body>
+</html>

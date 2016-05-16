@@ -6,11 +6,112 @@ var pg = require('pg').native; //used for lab machines
  var database = "postgres://gomezjosh:password@depot:5432/SwenGroup9";
  var client = new pg.Client(database);
  client.connect();
+ 
+ /** Testing variables */
+ var loggedUser = '';
+ var cart = [];		// {item:a, seller:b, quantity:c}
+ var cartCost = 0;
+ var resultsPerPage = 10;
+ /** Testing variables end */
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	res.redirect('/login');
 });
+
+/** Testing pages */
+router.get('/indexTEST', function(req, res, next) {
+	if (loggedUser == null){	// User's not logged in, redirect to login page
+	  res.redirect('loginTEST');
+	}
+	else {				// user's already logged in. Show home page.
+	  res.render('indexTEST', {title: 'The Market', user: loggedUser, cart: cart.length});
+	}
+});
+
+router.get('/logoutTEST', function(req, res, next) {
+	loggedUser = '';
+	cart = [];
+	res.redirect('loginTEST');
+});
+
+router.get('/loginTEST', function(req, res, next) {
+	var err = 'Username or password incorrect. Please try again.';
+	// Query for existing username
+	if (req.query.username){
+		// Query database for user. If user exists, allow login.
+		var query = client.query("SELECT username,password FROM Users WHERE username = '" + req.query.username + "';", function (error, result) {
+			if (error){ console.log(error);}
+			else {
+				if (result.rows.length > 0){	// A user exists with this name. Log in.
+					loggedUser = req.query.username;
+					cartSize = 0;
+					cart = [];
+					err = '';
+				}
+			}
+		});
+	} else { err = ''; }
+	// If successful, log in. If not, redirect with error message.
+	if (loggedUser == null){	// User did not successfully log in
+	  res.render('loginTEST', {title: 'The Market', user:loggedUser, cart:cart.length, err: err});
+	}
+	else {
+	  res.redirect('indexTEST');
+	}
+	
+});
+
+router.get('/cartTEST', function(req, res, next) {		// Viewing the contents of the cart
+	var cartFull = [];
+	for (i in cart){
+		var queryStr = "SELECT * FROM items WHERE seller = '" + cart[i].seller + "' AND name = '" + cart[i].item + "';";
+		var query = client.query(queryString, function (error, result) {
+			if (error){ console.log(error);}
+			else {
+				console.log(result.rows)
+				cartFull.push({result:result.rows, quantity:cart[i].quantity});
+			}
+		});
+	}
+	res.render('cartTEST', {title: 'The Market', user:loggedUser, cart:cart.length, list:cartFull, cost: cartCost});
+});
+
+router.get('/searchTEST', function(req, res, next) {
+	// limit 10 offset 20			10 results from row 20
+	var queryStr = "SELECT * FROM items WHERE name = '" + req.query.search + " limit 10';"
+	var query = client.query(queryStr, function (error, result) {
+		if (error){ console.log(error);}
+		else {
+			res.render('searchTEST', {title: 'The Market', user:loggedUser, cart:cart.length, list:result.rows, cost: cartCost});
+		}
+	});
+	res.redirect('indexTEST');
+});
+
+router.get('/addToCartTEST', function(req, res, next) {
+	// req.body.item		should return full result
+	var itm = req.body.item;
+	cart.push({item:itm.item, seller:itm.seller, quantity:1});
+	cartCost += 0;		// Check cost of item when adding it
+	res.redirect('indexTEST');
+});
+
+router.get('/paymentTEST', function(req, res, next) {
+	// ... show page requesting payment information (credit card & address)
+	res.redirect('indexTEST');
+});
+
+router.get('/purchaseTEST', function(req, res, next) {
+	// ... Remove purchased items from database
+	res.redirect('indexTEST');
+});
+
+router.get('/removeFromCartTEST', function(req, res, next) {
+	// ... Remove an item from the cart
+	res.redirect('indexTEST');
+});
+/** End of testing pages */
 
  pg.connect(database, function(err, client, done){
  	if(err){

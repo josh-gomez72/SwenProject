@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+	<p>Please enter your username and password.</p>
+	<p><%= err %></p>
+	<form action="loginTEST" method="get">
+        <input type="text" placeholder="Username" name ="username"><br>
+        <input type="password" placeholder="Password" name ="password"><br>
+        <input id="submit" type="submit" value="Submit">
+    </form>
+  </body>
+</html>

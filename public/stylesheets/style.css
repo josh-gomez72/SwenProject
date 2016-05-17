@@ -47,7 +47,7 @@ div.slider-size{
 /* Mobile */
 @media (max-width: 767px) {
 	.slider-size {
-		height: auto;
+		height: 35vh;
 	}
 	.slider-size > img {
 		width: 80%;
@@ -57,7 +57,7 @@ div.slider-size{
 /* tablets */
 @media (max-width: 991px) and (min-width: 768px) {
 	.slider-size {
-		height: auto;
+		height: 50vh;
 	}
 	.slider-size > img {
 		width: 80%;
@@ -67,7 +67,7 @@ div.slider-size{
 /* laptops */
 @media (max-width: 1023px) and (min-width: 992px) {
 	.slider-size {
-		height: 200px;
+		height: 50vh;
 	}
 	.slider-size > img {
 		width: 80%;
@@ -77,7 +77,7 @@ div.slider-size{
 /* desktops */
 @media (min-width: 1024px) {
 	.slider-size {
-		height: 300px;
+		height: 50vh;
 	}
 	.slider-size > img {
 		width: 60%;

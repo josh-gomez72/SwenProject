@@ -74,17 +74,35 @@
 </div>
 </body>
 <script>
-    var item = {title:"ECS", desc: "A great deal of disappointment",price: 77,images:["/images/uploads/19574e1c2d3aea60ae72a43a6e016491.png","/images/uploads/1c8f360e53886b6e6f0352ea3d38a156.png"]};
-    function getItem(){
+    //var item;
 
+    getItem();
+    function getItem(){
+        //item = {title:"ECS", desc: "A great deal of disappointment",price: 77,images:["/images/uploads/19574e1c2d3aea60ae72a43a6e016491.png","/images/uploads/1c8f360e53886b6e6f0352ea3d38a156.png"]};
+
+        $.ajax({
+            url: "/buy/item",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({itemID:getParameterByName("id")}),
+            success: function(response){
+                console.log("RES: " + response);
+                response = JSON.parse(response);
+                response.image = JSON.parse(response.image);
+                console.log(response.title);
+                console.log(response.price);
+                console.log(response.image);
+                displayItem(response);
+            }
+        });
     }
-    displayItem();
-    function displayItem(){
-        $("#title").html(item.title+' <small>$'+item.price+'</small>');
-        $("#desc").text(item.desc);
+
+    function displayItem(item){
+        $("#title").html(item.name+' <small>'+item.price+'</small>');
+        $("#desc").text(item.description);
         var indicators = "";
         var inner = "";
-        for (i in item.images){
+        for (i in item.image){
             if (i == 0){
                 indicators+= '<li data-target="#myCarousel" data-slide-to="'+i+'" class="active"></li>';
                 inner+= '<div class="item active">';
@@ -94,9 +112,8 @@
                 inner+= '<div class="item">';
             }
 
-
             inner+= '<div class="slider-size">' +
-                    '<img src="'+item.images[i]+'" style="height: 100%;"/> ' +
+                    '<img src="'+item.image[i]+'" style="height: 100%;"/> ' +
                     '</div> ' +
                     '</div>';
         }
@@ -117,6 +134,16 @@
                 $("#success").show(300);
             }
         });
+    }
+
+    function getParameterByName(name) {
+        var url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+        if (!results) return '';
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
 </script>
 </html>

@@ -21,14 +21,14 @@ router.get('/', function(req, res, next) {
  	}
 
  	console.log('Connected to database: SwenGroup9');
- 	client.query("SELECT * FROM Users;", function(error, result){
+ 	client.query("SELECT * FROM Items;", function(error, result){
  	done();
  	if (error){
  		console.error('Failed to execute query');
  		console.error(error);
  		return;
  		}
- 	console.log(result);
+ 	console.log("RESULT: " + JSON.stringify(result.rows));
  	});
  });
 

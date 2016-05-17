@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/registerStyle.css' />
+</head>
+<body>
+<div class = "register-block">
+    <h1><%= title %></h1>
+    <form action="register/confirmation" method="get">
+        <!--First name: <br>-->
+        <input type="text" placeholder="First Name" name="firstname"><br>
+        <!--Last name: <br>-->
+        <input type="text" placeholder="Last Name" name ="lastname"><br>
+        <!--Username: <br>-->
+        <input type="text" placeholder="Username" name ="username"><br>
+        <!--Password: <br>-->
+        <input type="password" placeholder="Password" name ="password"><br>
+        <!--Email: <br>-->
+        <input type="text" placeholder="Email" name ="email"><br>
+        <!--Address: <br>-->
+        <input type="text" placeholder="Address" name ="address"><br>
+        <!--City: <br>-->
+        <input type="text" placeholder="City" name ="city"><br>
+        <!--Postcode: <br>-->
+        <input type="text" placeholder="Postcode" name ="postcode"><br>
+        <!--Phone Number: <br>-->
+        <input type="text" placeholder="Phone" name ="phoneNumber"><br>
+        <input id="submit" type="submit" value="Submit">
+    </form>
+    </div>
+</body>
+</html>

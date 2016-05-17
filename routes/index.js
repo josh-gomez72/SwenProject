@@ -8,7 +8,7 @@ var pg = require('pg').native; //used for lab machines
  client.connect();
  
  /** Testing variables */
- var loggedUser = '';
+ var loggedUser = null;
  var cart = [];		// {item:a, seller:b, quantity:c}
  var cartCost = 0;
  var resultsPerPage = 10;
@@ -66,7 +66,7 @@ router.get('/cartTEST', function(req, res, next) {		// Viewing the contents of t
 	var cartFull = [];
 	for (i in cart){
 		var queryStr = "SELECT * FROM items WHERE seller = '" + cart[i].seller + "' AND name = '" + cart[i].item + "';";
-		var query = client.query(queryString, function (error, result) {
+		var query = client.query(queryStr, function (error, result) {
 			if (error){ console.log(error);}
 			else {
 				console.log(result.rows)
@@ -78,22 +78,27 @@ router.get('/cartTEST', function(req, res, next) {		// Viewing the contents of t
 });
 
 router.get('/searchTEST', function(req, res, next) {
+	//console.log("Search Test");
 	// limit 10 offset 20			10 results from row 20
-	var queryStr = "SELECT * FROM items WHERE name = '" + req.query.search + " limit 10';"
+	var queryStr = "SELECT * FROM items WHERE name = '" + req.query.search + "';"
 	var query = client.query(queryStr, function (error, result) {
 		if (error){ console.log(error);}
 		else {
 			res.render('searchTEST', {title: 'The Market', user:loggedUser, cart:cart.length, list:result.rows, cost: cartCost});
 		}
 	});
-	res.redirect('indexTEST');
+	//res.redirect('indexTEST');
 });
 
 router.get('/addToCartTEST', function(req, res, next) {
 	// req.body.item		should return full result
-	var itm = req.body.item;
-	cart.push({item:itm.item, seller:itm.seller, quantity:1});
+	var itm = req.query.item;
+	console.log(req.query.item.toString())
+	console.log(itm.name);
+	console.log(itm.category);
+	cart.push({item:itm.name, seller:itm.seller, quantity:1});
 	cartCost += 0;		// Check cost of item when adding it
+	console.log(cart);
 	res.redirect('indexTEST');
 });
 

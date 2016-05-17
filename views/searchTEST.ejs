@@ -12,7 +12,7 @@
 	
 	<form action="addToCartTEST" method="get">	
 		<% for(var i=0; i < list.length; i++) { %>
-			<input type="radio" name="item" value="<%= list[i] %>"><%= list[i].name %>
+			<input type="radio" name="item" value="<%= {name:list[i].name, seller:list[i].seller} %>"><%= list[i] %>
 		<% } %>
     <input id="submit" type="submit" value="Add to cart">
     </form>

@@ -14,8 +14,29 @@
 		<% for(var i=0; i < list.length; i++) { %>
 			<input type="radio" name="item" value="<%= {name:list[i].name, seller:list[i].seller} %>"><%= list[i] %>
 		<% } %>
-    <input id="submit" type="submit" value="Add to cart">
+    <input id="submit" type="submit" onclick="sendBack()" value="Add to cart">
     </form>
 	
   </body>
+
+  <footer>
+      <script>
+          function sendBack(){
+              var test = list;
+              alert(list);
+              $.ajax({
+                  type: "POST",
+                  url: "/addToCartTEST",
+                  contentType: "application/json",
+                  data: JSON.stringify(),
+                  success: function(res){
+                      alert("working");
+                  },
+                  error: function(){
+                      alert("not so much");
+                  }
+              });
+          }
+      </script>
+  </footer>
 </html>

@@ -3,7 +3,8 @@ var router = express.Router();
 var pg = require('pg').native; //used for lab machines
 //var pg = require('pg'); //used for windows
 
- var database = "postgres://gomezjosh:password@depot:5432/SwenGroup9";
+// var database = "postgres://gomezjosh:password@depot:5432/SwenGroup9";
+ var database = "postgres://tihxgzxemzbafr:hiCzGMi1vENgac3Cmd-UyZDeZ-@ec2-54-235-208-3.compute-1.amazonaws.com:5432/defa0fcjs2b02k";
  var client = new pg.Client(database);
  client.connect();
 
@@ -37,6 +38,15 @@ router.get('/register', function(req, res, next){
 
 router.get('/login', function(req, res, next){
 	res.render('login', {title: 'Login'});
+});
+
+router.get('/login/confirmation', function (req, res, next){
+	console.log(req.query)
+	var username = req.query.username;
+	var password = req.query.password;
+	
+	client.query("")	
+	
 });
 
 router.get('/browse/category', function(req, res, next){

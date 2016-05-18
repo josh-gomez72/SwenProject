@@ -29,9 +29,25 @@ router.post('/item', function(req,res,next){
 });
 
 router.post('/addToCart', function(req, res, next) {
-  console.log(JSON.stringify(req.body));
-  res.write("<strong>Success!</strong> Item added to cart.");
-  res.end();
+  console.log("RECIEVED: " + JSON.stringify(req.body));
+  var query = "SELECT * FROM Items WHERE seller='SmithBob';";
+  query = "UPDATE Items SET ";
+  query += "stock='"+req.body.stock+"'";
+  query += "WHERE itemid='"+req.body.itemid+"';";
+
+  console.log("QUERY: " + query);
+  client.query(query, function(error, result){
+    if (error){
+      console.error('Failed to execute query');
+      console.error(error);
+      res.write(JSON.stringify({success:false, message:"<strong>Error:</strong> Failed to add to cart."}));
+      res.end();
+      return;
+    }
+    console.log(JSON.stringify(result));
+    res.write(JSON.stringify({success:true, message:"<span class='glyphicon glyphicon-shopping-cart'></span> <strong>Item added to cart!</strong>"}));
+    res.end();
+  });
 });
 
 module.exports = router;

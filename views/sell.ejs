@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Selling Example</title>
+    <title>Listing Item</title>
     <script src="/javascripts/jquery-1.12.1.min.js"> </script>
     <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
@@ -20,6 +20,7 @@
             <li><a href="/sell"><span class="glyphicon glyphicon-usd"></span> Sell</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+            <li><a href="/wishlist"><span class="glyphicon glyphicon-star-empty"></span> My Wishlist </a></li>
             <li><a href="/myListings"><span class="glyphicon glyphicon-tag"></span> My Listings </a></li>
             <li><a href="/cart"><span class="glyphicon glyphicon-shopping-cart"></span> View Cart </a></li>
             <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
@@ -82,10 +83,11 @@
             </div>
 
             <h3>Item Images:</h3>
-            <div class="text-center col-xs-12 imageUpload" id="pictures"></div>
-
-            <div id="success" class="text-center alert alert-success" style="display:none"></div>
-            <div id="error" class="text-center alert alert-danger" style="display:none"></div>
+            <div class="text-center row imageUpload" id="pictures"></div>
+            <div class="row">
+                <div id="success" class="text-center alert alert-success" style="display:none"></div>
+                <div id="error" class="text-center alert alert-danger" style="display:none"></div>
+            </div>
 
             <div class="text-center">
                 <button onclick="listItem()" class="btn btn-default">
@@ -153,7 +155,7 @@
         }
 
         $.ajax({
-            url: "/sell/list",
+            url: "/sell",
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(out),

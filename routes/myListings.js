@@ -16,7 +16,7 @@ router.get('/edit', function(req, res, next) {
 });
 
 router.post('/edit', function(req, res, next) {
-
+  
   console.log("RECIEVED: " + JSON.stringify(req.body));
   var query = "SELECT * FROM Items WHERE seller='SmithBob';";
   query = "UPDATE Items SET ";
@@ -24,7 +24,14 @@ router.post('/edit', function(req, res, next) {
   query += "description='"+req.body.description+"',";
   query += "category='"+req.body.category+"',";
   query += "price='"+req.body.price+"',";
-  query += "image='"+JSON.stringify(req.body.image)+"',";
+  query += "image='{"
+
+  for (i in req.body.image){
+    query+= "\""+req.body.image[i];
+    if (i != req.body.image.length-1) query+= "\",";
+    else query+= "\"}',";
+  }
+
   query += "stock='"+req.body.stock+"',";
   query += "seller='"+req.body.seller+"',";
   query += "parent_category='"+req.body.parent_category+"' ";

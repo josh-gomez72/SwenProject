@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Listings</title>
+    <title>Wishlist</title>
     <script src="/javascripts/jquery-1.12.1.min.js"> </script>
     <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
@@ -40,7 +40,7 @@
 
 <div class="container">
     <div class="well">
-        <h1><strong> My Listings </strong></h1>
+        <h1><strong> My Wishlist </strong></h1>
 
         <div id="itemList"></div>
     </div>
@@ -55,9 +55,9 @@
     getListings();
 
     function getListings(){
-        var out = {user:"SmithBob"};
+        var out = {userID:1};
         $.ajax({
-            url: "/myListings/getListings",
+            url: "/wishlist/items",
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(out),
@@ -83,19 +83,14 @@
                 '</div><div class="col-xs-3">'+
                 '<h3>Quantity: <small>'+item.stock+'</small></h3>'+
                 '</div>' +
-                '<div class="col-xs-6 text-right">' +
-                '<button type="button" onclick="editListing('+index+')" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span> Edit</button>' +
-                '</div></div></div>';
+                '</div></div>';
     }
 
-    function editListing(index){
-        window.location.href = "/myListings/edit?id="+currentListingsJSON[index].itemid;
-    }
     function removeListing(index){
         console.log("removing " + index);
         var out = currentListingsJSON[index];
         $.ajax({
-            url: "/myListings/remove",
+            url: "/wishlist/remove",
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(out),

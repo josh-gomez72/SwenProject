@@ -16,20 +16,13 @@
             <a class="navbar-brand" href="">ROMAPLZ</a>
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Home</a></li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Browse
-                    <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Cat</a></li>
-                    <li><a href="#">Dog</a></li>
-                    <li><a href="#">Potato</a></li>
-                </ul>
-            </li>
-            <li class="active"><a href="/">Sell</a></li>
+            <li><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+            <li><a href="/sell"><span class="glyphicon glyphicon-usd"></span> Sell</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> View Cart <span class="badge">5</span></a></li>
+            <li><a href="/wishlist"><span class="glyphicon glyphicon-star-empty"></span> My Wishlist </a></li>
+            <li><a href="/myListings"><span class="glyphicon glyphicon-tag"></span> My Listings </a></li>
+            <li><a href="/cart"><span class="glyphicon glyphicon-shopping-cart"></span> View Cart </a></li>
             <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         </ul>
         <div class="pull-right">
@@ -115,7 +108,7 @@
     var pictures = ['<input id="upload" type="file" onchange="uploadImage()" accept="image/*" style="display:none">' +
     '<label for="upload">' +
     '<span class="glyphicon glyphicon-plus"></span> Add Image' +
-    '<img src="/images/add_image_icon.png" class="thumbnail" width="200" height="200">' +
+    '<img src="/images/add_image_icon.png" class="thumbnail">' +
     '</label>'];
 
     var listing;
@@ -179,7 +172,7 @@
             processData: false,
             contentType: false,
             success: function (response) {
-                pictures.push('<img src="'+response+'" class="thumbnail" width="200" height="200">');
+                pictures.push('<img src="'+response+'" class="thumbnail">');
                 listing.image.push(response);
                 drawImages();
             }

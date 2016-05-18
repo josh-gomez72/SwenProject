@@ -33,7 +33,7 @@ router.post('/uploadPhoto', upload.single('fileToUpload'), function(req, res) {
     });
 });
 
-router.post('/list', function(req,res){
+router.post('/', function(req,res){
     console.log("LIST: "+req.body.title);
     console.log("LIST: "+req.body.desc);
     console.log("LIST: "+req.body.price);
@@ -66,7 +66,7 @@ router.post('/list', function(req,res){
         }
         console.log("RESULT: " + JSON.stringify(result.rows));
 
-        res.write(JSON.stringify({success:true,message:"<strong>Success!</strong> Item listed."}));
+        res.write(JSON.stringify({success:true,message:"<span class='glyphicon glyphicon-floppy-saved'></span> <strong>Success!</strong> Item listed."}));
         res.end();
     });
 

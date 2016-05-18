@@ -8,6 +8,7 @@
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
 	<p>You have <%= cart %> items in your cart.</p>
+	<p>Your total is $<%= cost %>.</p>
 	<p>You are viewing your cart.</p>
 	<form action="purchaseTEST" method="get">
         <input id="submit" type="submit" value="Go To Payment">
@@ -15,7 +16,7 @@
 	<table>
 		<% for(var i=0; i < list.length; i++) { %>
 			<tr>
-				<td><%= list[i] %></td>
+				<td><%= list[i].item[0].name %></td>
 			</tr>
 		<% } %>
 	</table>

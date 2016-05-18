@@ -1,17 +1,17 @@
 var express = require('express');
 var router = express.Router();
-var pg = require('pg').native; //used for lab machines
-//var pg = require('pg'); //used for windows
+//var pg = require('pg').native; //used for lab machines
+var pg = require('pg'); //used for windows
 
 // var database = "postgres://gomezjosh:password@depot:5432/SwenGroup9";
- var database = "postgres://tihxgzxemzbafr:hiCzGMi1vENgac3Cmd-UyZDeZ-@ec2-54-235-208-3.compute-1.amazonaws.com:5432/defa0fcjs2b02k";
+ var database = "postgres://tihxgzxemzbafr:hiCzGMi1vENgac3Cmd-UyZDeZ-@ec2-54-235-208-3.compute-1.amazonaws.com:5432/defa0fcjs2b02k?ssl=true";
  var client = new pg.Client(database);
  client.connect();
  
  /** Testing variables */
  var loggedUser = null;
- var cart = [];		// {item:a, seller:b, quantity:c}
- var cartCost = 0;
+ var cart = [];		// {id, item, quantity}
+ var cartCost = 0;	// use item price
  var resultsPerPage = 10;
  /** Testing variables end */
 
@@ -31,51 +31,39 @@ router.get('/indexTEST', function(req, res, next) {
 });
 
 router.get('/logoutTEST', function(req, res, next) {
-	loggedUser = '';
+	loggedUser = null;
 	cart = [];
+	cartCost = 0;
 	res.redirect('loginTEST');
 });
 
 router.get('/loginTEST', function(req, res, next) {
-	var err = 'Username or password incorrect. Please try again.';
 	// Query for existing username
 	if (req.query.username){
 		// Query database for user. If user exists, allow login.
-		var query = client.query("SELECT username,password FROM Users WHERE username = '" + req.query.username + "';", function (error, result) {
+		var query = client.query("SELECT  FROM Users WHERE username = '" + req.query.username + "';", function (error, result) {
 			if (error){ console.log(error);}
 			else {
-				if (result.rows.length > 0){	// A user exists with this name. Log in.
+				if (result.rows.length > 0){	// A user exists with this name, successful login.
 					loggedUser = req.query.username;
 					cartSize = 0;
 					cart = [];
-					err = '';
+					res.redirect('indexTEST');
+				}
+				else {	// No existing username, fail to log in.
+					res.render('loginTEST', {title: 'The Market', user:loggedUser, cart:cart.length, err: 'Username or password incorrect. Please try again.'});
 				}
 			}
 		});
-	} else { err = ''; }
-	// If successful, log in. If not, redirect with error message.
-	if (loggedUser == null){	// User did not successfully log in
-	  res.render('loginTEST', {title: 'The Market', user:loggedUser, cart:cart.length, err: err});
-	}
-	else {
-	  res.redirect('indexTEST');
+	} else {		// no username was passed in.
+		res.render('loginTEST', {title: 'The Market', user:loggedUser, cart:cart.length, err: ''});
 	}
 	
 });
 
-router.get('/cartTEST', function(req, res, next) {		// Viewing the contents of the cart
-	var cartFull = [];
-	for (i in cart){
-		var queryStr = "SELECT * FROM items WHERE seller = '" + cart[i].seller + "' AND name = '" + cart[i].item + "';";
-		var query = client.query(queryStr, function (error, result) {
-			if (error){ console.log(error);}
-			else {
-				console.log(result.rows)
-				cartFull.push({result:result.rows, quantity:cart[i].quantity});
-			}
-		});
-	}
-	res.render('cartTEST', {title: 'The Market', user:loggedUser, cart:cart.length, list:cartFull, cost: cartCost});
+router.get('/cartTEST', function(req, res, next) {
+	// Updated so all info remains in the cart, don't need to pull from db
+	res.render('cartTEST', {title: 'The Market', user:loggedUser, cart:cart.length, list:cart, cost: cartCost});
 });
 
 router.get('/searchTEST', function(req, res, next) {
@@ -91,15 +79,38 @@ router.get('/searchTEST', function(req, res, next) {
 	//res.redirect('indexTEST');
 });
 
+/* Requires item:itemid. Optional quantity:digit. 
+	Adds an object to the cart by itemID, or increments quantity if already in cart.*/
 router.get('/addToCartTEST', function(req, res, next) {
-	// req.body.item		should return full result
-	var itm = req.query.item;
-	console.log(req.query.item.toString())
-	console.log(itm.name);
-	console.log(itm.category);
-	cart.push({item:itm.name, seller:itm.seller, quantity:1});
-	cartCost += 0;		// Check cost of item when adding it
-	console.log(cart);
+	var found = false;
+	// Store quantity to add
+	var quan = 1;
+	if (req.query.quantity > 1){ quan = req.query.quantity; }
+	// Check if item exists in cart already
+	for (i = 0; i < cart.length; i++){
+		console.log("CartID: " + cart[i].id + "  .. req: " + req.query.item);
+		if (cart[i].id==req.query.item){	// Item exists, increment the quantity and cost.
+			cart[i].quantity += quan;
+			var price = (cart[i].item[0].price).replace(/[^\d.-]/g, '');
+			var totalCost = price * quan;
+			cartCost += totalCost;
+			found = true;
+		}
+	}
+	// Item does not exist in cart. Must add it.
+	if (found == false){
+		var queryStr = "SELECT * FROM items WHERE itemid = '" + req.query.item + "';"
+		var query = client.query(queryStr, function (error, result) {
+			if (error){ console.log(error);}
+			else {
+				cart.push({id: req.query.item, item:result.rows, quantity:quan});
+				// Gather the price of the item, multiplied by quantity.
+				var price = (result.rows[0].price).replace(/[^\d.-]/g, '');
+				var totalCost = price * quan;
+				cartCost += totalCost;
+			}
+		});
+	}
 	res.redirect('indexTEST');
 });
 

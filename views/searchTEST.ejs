@@ -8,13 +8,16 @@
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
 	<p>You are logged in as <%= user %>.</p>
+	<p>Testing: <%= list[0] %></p>
 	<p>You have <%= cart %> items in your cart.</p>
 	
 	<form action="addToCartTEST" method="get">	
+		Quantity: <input type="number" placeholder="1" name ="quantity"><br>
 		<% for(var i=0; i < list.length; i++) { %>
-			<input type="radio" name="item" value="<%= {name:list[i].name, seller:list[i].seller} %>"><%= list[i] %>
+			<input type="radio" name="item" value=<%- list[i].itemid %>><%= list[i].name %>
 		<% } %>
-    <input id="submit" type="submit" onclick="sendBack()" value="Add to cart">
+    <input id="submit" type="submit" value="Add to cart">
+	<!--<input id="submit" type="submit" onclick="sendBack()" value="Add to cart">-->
     </form>
 	
   </body>

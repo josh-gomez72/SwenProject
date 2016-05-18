@@ -13,12 +13,12 @@
 	<form action="purchaseTEST" method="get">
         <input id="submit" type="submit" value="Go To Payment">
     </form>
-	<table>
+	<form action="removeFromCartTEST" method="get">	
+		Quantity: <input type="number" placeholder="1" name ="quantity"><br>
 		<% for(var i=0; i < list.length; i++) { %>
-			<tr>
-				<td><%= list[i].item[0].name %></td>
-			</tr>
+			<input type="radio" name="item" value=<%- list[i].id %>><%= list[i].item[0].name %>, <%= list[i].quantity %>
 		<% } %>
-	</table>
+    <input id="submit" type="submit" value="remove from cart">
+    </form>
   </body>
 </html>

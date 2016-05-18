@@ -25,8 +25,6 @@ router.get('/remove', function(req, res, next) {
 	res.redirect('/');
 });
 
-
-
  pg.connect(database, function(err, client, done){
  	if(err){
  		console.error('Could not connect to the database');

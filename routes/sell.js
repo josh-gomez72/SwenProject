@@ -42,9 +42,14 @@ router.post('/list', function(req,res){
     var input = "VALUES('"+req.body.name+"','"+
         req.body.description+"','" +
         req.body.category+"','" +
-        req.body.price+"','" +
-        JSON.stringify(req.body.image)+"','" +
-        req.body.stock+"','" +
+        req.body.price+"','";
+    input += "{";
+    for (i in req.body.image){
+        input+= "\""+req.body.image[i];
+        if (i != req.body.image.length-1) input+= "\",";
+        else input+= "\"}','";
+    }
+    input += req.body.stock+"','" +
         "SmithBob','" +
         req.body.parent_category+"'" +
         ");";

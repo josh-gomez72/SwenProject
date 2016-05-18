@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cart Example</title>
+    <title>My Listings</title>
     <script src="/javascripts/jquery-1.12.1.min.js"> </script>
     <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
@@ -16,20 +16,12 @@
             <a class="navbar-brand" href="">ROMAPLZ</a>
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Home</a></li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Browse
-                    <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Cat</a></li>
-                    <li><a href="#">Dog</a></li>
-                    <li><a href="#">Potato</a></li>
-                </ul>
-            </li>
-            <li class="active"><a href="/">Sell</a></li>
+            <li><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+            <li><a href="/sell"><span class="glyphicon glyphicon-usd"></span> Sell</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> View Cart <span class="badge">5</span></a></li>
+            <li><a href="/myListings"><span class="glyphicon glyphicon-tag"></span> My Listings </a></li>
+            <li><a href="/cart"><span class="glyphicon glyphicon-shopping-cart"></span> View Cart </a></li>
             <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         </ul>
         <div class="pull-right">
@@ -72,10 +64,11 @@
                 response = JSON.parse(response);
                 currentListings = '';
                 for (i in response){
-                    if (i == 0) continue;
-                    response[i].image = JSON.parse(response[i].image);
+                    // (i == 0) continue;
+                    //response[i].image = JSON.parse(response[i].image);
                     makeListingItem(response[i], i);
                 }
+                $("#itemList").html(currentListings);
                 currentListingsJSON = response;
             }
         });
@@ -98,19 +91,36 @@
                 '<div class="col-xs-6 text-right">' +
                 '<button type="button" onclick="editListing('+index+')" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span> Edit</button>' +
                 '</div></div></div>';
-        $("#itemList").html(currentListings);
-//        onclick="editListing('+itemString+')"
-//        onclick="removeListing('+itemString+')"
     }
 
     function editListing(index){
-        console.log("editing " + index);
         window.location.href = "/myListings/edit?id="+currentListingsJSON[index].itemid;
     }
     function removeListing(index){
         console.log("removing " + index);
+        var out = currentListingsJSON[index];
+        $.ajax({
+            url: "/myListings/remove",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(out),
+            success: function(response){
+                currentListingsJSON.splice(index,1);
+                response = JSON.parse(response);
+                alert(response.message);
+                drawListings();
+            }
+        });
     }
 
+    function drawListings(){
+        currentListings = "";
+        for (i in currentListingsJSON){
+            if (i == 0) continue;
+            makeListingItem(currentListingsJSON[i], i);
+        }
+        $("#itemList").html(currentListings);
+    }
 
 </script>
 

@@ -39,7 +39,20 @@ router.post('/edit', function(req, res, next) {
       return;
     }
     console.log(JSON.stringify(result));
-    res.write(JSON.stringify({success:true, message:"<strong>File Edited Successfully!</strong>"}));
+    res.write(JSON.stringify({success:true, message:"<span class='glyphicon glyphicon-floppy-saved'></span> <strong>File Edited Successfully!</strong>"}));
+    res.end();
+  });
+});
+
+router.post('/remove', function(req, res, next) {
+  client.query("DELETE FROM Items WHERE itemid="+req.body.itemid+";", function(error, result){
+    if (error){
+      console.error('Failed to execute query');
+      console.error(error);
+      return;
+    }
+    console.log("REMOVED ITEMID: " + req.body.itemid);
+    res.write(JSON.stringify({success:true,message:"<strong>Success!</strong> "+req.body.name+" removed!"}));
     res.end();
   });
 });

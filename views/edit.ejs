@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Selling Example</title>
+    <title>Edit Listing</title>
     <script src="/javascripts/jquery-1.12.1.min.js"> </script>
     <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
@@ -90,20 +90,20 @@
             </div>
 
             <h3>Item Images:</h3>
-            <div class="text-center col-xs-12 imageUpload" id="pictures"></div>
-
-            <div id="success" class="text-center alert alert-success" style="display:none"></div>
-            <div id="error" class="text-center alert alert-danger" style="display:none"></div>
-
+            <div class="text-center row imageUpload" id="pictures"></div>
+            <div class="row">
+                <div id="success" class="text-center alert alert-success" style="display:none"></div>
+                <div id="error" class="text-center alert alert-danger" style="display:none"></div>
+            </div>
             <div class="text-center">
-                <button onclick="listItem()" class="btn btn-default">
-                    <span class="glyphicon glyphicon-cart"></span> Back To Cart
+                <button onclick="backToListings()" class="btn btn-default">
+                    <span class="glyphicon glyphicon-arrow-left"></span> Back To Listings
                 </button>
                 <button onclick="listItem()" class="btn btn-default">
-                    <span class="glyphicon glyphicon-ok"></span> List Item
+                    <span class="glyphicon glyphicon-floppy-disk"></span> Save Changes
                 </button>
-                <button onclick="listItem()" class="btn btn-default">
-                    <span class="glyphicon glyphicon-ok"></span> View Listing
+                <button onclick="viewListing()" class="btn btn-default">
+                    <span class="glyphicon glyphicon-tag"></span> View Listing
                 </button>
             </div>
         </div>
@@ -149,8 +149,6 @@
                 handleResponse(JSON.parse(response));
             }
         });
-
-
     }
 
     getItem();
@@ -219,6 +217,14 @@
         }
         drawImages();
         $("#display").show();
+    }
+
+    function viewListing(){
+        window.location.href = '/buy?id='+ getParameterByName("id");
+    }
+
+    function backToListings(){
+        window.location.href = '/myListings';
     }
 
     function handleResponse(res){

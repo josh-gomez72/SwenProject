@@ -13,6 +13,20 @@ router.get('/', function(req, res, next) {
 	res.redirect('/login');
 });
 
+router.get('/remove', function(req, res, next) {
+	client.query("DELETE FROM Items WHERE itemid!=1;", function(error, result){
+		if (error){
+			console.error('Failed to execute query');
+			console.error(error);
+			return;
+		}
+		console.log("RESULT: " + JSON.stringify(result.rows));
+	});
+	res.redirect('/');
+});
+
+
+
  pg.connect(database, function(err, client, done){
  	if(err){
  		console.error('Could not connect to the database');

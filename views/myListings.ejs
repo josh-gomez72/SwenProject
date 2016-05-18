@@ -47,34 +47,71 @@
 
 <div class="container">
     <div class="well">
-        <h1><strong> Cart </strong></h1>
+        <h1><strong> My Listings </strong></h1>
 
         <div id="itemList"></div>
     </div>
 </div>
-
+</body>
 <script>
 
-    var cartItem = {name:"Plus",price:3.50, quantity: 3,link:"/", images: ["/images/add_image_icon.png"]};
+    var currentListingsJSON = [];
 
-    makeCartItem(cartItem);
-    function makeCartItem(item){
-        var out = '<div class="well row"><div class="col-xs-3">' +
-                '<a href="'+item.link+'">'+
-                '<img src="'+item.images[0]+'" class="img-responsive thumbnail"></a>'+
+    var currentListings = "";
+
+    getListings();
+
+    function getListings(){
+        var out = {user:"SmithBob"};
+        $.ajax({
+            url: "/myListings/getListings",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(out),
+            success: function (response) {
+                response = JSON.parse(response);
+                currentListings = '';
+                for (i in response){
+                    if (i == 0) continue;
+                    response[i].image = JSON.parse(response[i].image);
+                    makeListingItem(response[i], i);
+                }
+                currentListingsJSON = response;
+            }
+        });
+    }
+
+    function makeListingItem(item, index){
+        var itemString = JSON.stringify(item);
+        currentListings += '<div class="well row"><div class="col-xs-3">' +
+                '<a href="/buy?id='+item.itemid+'">'+
+                '<img src="'+item.image[0]+'" class="img-responsive thumbnail"></a>'+
                 '</div><div class="col-xs-9"><div class="row"><div class="col-xs-9">'+
-                '<h2><a href="'+item.link+'">'+item.name+'</a></h2></div>'+
+                '<h2><a href="/buy?id='+item.itemid+'">'+item.name+'</a></h2></div>'+
                 '<div class="col-xs-3 text-right">' +
-                '<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-remove"></span> Remove</button>' +
+                '<button type="button" onclick="removeListing('+index+')" class="btn btn-warning"><span class="glyphicon glyphicon-remove"></span> Remove</button>' +
                 '</div></div><div class="col-xs-3">'+
-                '<h3>Price: <small>$'+item.price+'</small></h3>'+
+                '<h3>Price: <small>'+item.price+'</small></h3>'+
                 '</div><div class="col-xs-3">'+
-                '<h3>Quantity: <small>'+item.quantity+'</small></h3>'+
+                '<h3>Quantity: <small>'+item.stock+'</small></h3>'+
+                '</div>' +
+                '<div class="col-xs-6 text-right">' +
+                '<button type="button" onclick="editListing('+index+')" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span> Edit</button>' +
                 '</div></div></div>';
-        $("#itemList").html(out);
+        $("#itemList").html(currentListings);
+//        onclick="editListing('+itemString+')"
+//        onclick="removeListing('+itemString+')"
+    }
+
+    function editListing(index){
+        console.log("editing " + index);
+        window.location.href = "/myListings/edit?id="+currentListingsJSON[index].itemid;
+    }
+    function removeListing(index){
+        console.log("removing " + index);
     }
 
 
 </script>
-</body>
+
 </html>

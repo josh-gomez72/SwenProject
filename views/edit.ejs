@@ -45,7 +45,7 @@
     </div>
 </nav>
 
-<div class="container">
+<div class="container" id="display" style="display:none">
     <h2>Sell Item</h2>
     <div class="well">
         <h3>Item Details:</h3>
@@ -97,7 +97,13 @@
 
             <div class="text-center">
                 <button onclick="listItem()" class="btn btn-default">
+                    <span class="glyphicon glyphicon-cart"></span> Back To Cart
+                </button>
+                <button onclick="listItem()" class="btn btn-default">
                     <span class="glyphicon glyphicon-ok"></span> List Item
+                </button>
+                <button onclick="listItem()" class="btn btn-default">
+                    <span class="glyphicon glyphicon-ok"></span> View Listing
                 </button>
             </div>
         </div>
@@ -112,25 +118,57 @@
     '<img src="/images/add_image_icon.png" class="thumbnail" width="200" height="200">' +
     '</label>'];
 
-    imagePaths = [];
+    var listing;
 
-    drawImages();
-    function drawImages(){
-        var output = "";
-        for (i in pictures){
-            output+='<div class="col-xs-3 text-center">';
-            if (i > 0) output+='<label onclick="deleteImage('+i+')"><span class="glyphicon glyphicon-remove"></span> Remove</label>';
-            output+=pictures[i];
-            output+='</div>';
+
+
+    function listItem(){
+        var out = listing;
+
+        if ($("#price").val() < 0) {
+            $("#price").val(0);
+            $("#error").html("<strong>Error: </strong> quantity cannot be less than zero");
+            $("#error").show(500).delay(2000).hide(500);
+            return;
         }
-        $("#pictures").html(output);
+
+        out.price = $("#price").val();
+        out.name = $("#title").val();
+        out.description = $("#description").val();
+        out.category = $("#category").val();
+        out.parent_category = $("#parentCategory").val();
+        out.stock = $("#quantity").val();
+
+        console.log("OUT: " + JSON.stringify(out));
+        $.ajax({
+            url: "/myListings/edit",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(out),
+            success: function(response){
+                handleResponse(JSON.parse(response));
+            }
+        });
+
+
     }
 
-    function deleteImage(index){
-        console.log("delete " + index);
-        pictures.splice(index, 1);
-        imagePaths.splice(index-1, 1);
-        drawImages();
+    getItem();
+    function getItem(){
+        $.ajax({
+            url: "/myListings/itemFromID",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({itemID:getParameterByName("id")}),
+            success: function(response){
+                console.log("RES: " + response);
+                response = JSON.parse(response);
+                response.image = JSON.parse(response.image);
+                response.price = response.price.replace("$","");
+                listing = response;
+                autoFill();
+            }
+        });
     }
 
     function uploadImage(){
@@ -145,48 +183,63 @@
             contentType: false,
             success: function (response) {
                 pictures.push('<img src="'+response+'" class="thumbnail" width="200" height="200">');
-                imagePaths.push(response);
+                listing.image.push(response);
                 drawImages();
             }
         });
     }
 
-    function listItem(){
-        var out = {name:$("#title").val(),description:$("#description").val(),category:$("#category").val(),price:$("#price").val(),image:imagePaths,stock:$("#quantity").val(),seller:"SmithBob",parent_category:$("#parentCategory").val()};
-        if ($("#price").val() < 0) {
-            $("#price").val(0);
-            $("#error").html("<strong>Error: </strong> quantity cannot be less than zero");
+    function drawImages(){
+        var output = "";
+        for (i in pictures){
+            output+='<div class="col-xs-3 text-center">';
+            if (i > 0) output+='<label onclick="deleteImage('+i+')"><span class="glyphicon glyphicon-remove"></span> Remove</label>';
+            output+=pictures[i];
+            output+='</div>';
+        }
+        $("#pictures").html(output);
+    }
+
+    function deleteImage(index){
+        console.log("delete " + index);
+        pictures.splice(index, 1);
+        listing.image.splice(index-1, 1);
+        drawImages();
+    }
+
+    function autoFill(){
+        $("#title").val(listing.name);
+        $("#description").val(listing.description);
+        $("#price").val(listing.price);
+        $("#category").val(listing.category);
+        $("#parentCategory").val(listing.parent_category);
+        $("#quantity").val(listing.stock);
+        for (i in listing.image) {
+            pictures.push('<img src="' + listing.image[i] + '" class="thumbnail" width="200" height="200">');
+        }
+        drawImages();
+        $("#display").show();
+    }
+
+    function handleResponse(res){
+        if (res.success) {
+            $("#success").html(res.message);
+            $("#success").show(500).delay(2000).hide(500);
+        }
+        else {
+            $("#error").html(res.message);
             $("#error").show(500).delay(2000).hide(500);
-            return;
         }
+    }
 
-        $.ajax({
-            url: "/sell/list",
-            type: "POST",
-            contentType: "application/json",
-            data: JSON.stringify(out),
-            success: function(response){
-                handleResponse(JSON.parse(response));
-            }
-        });
-
-        function handleResponse(res){
-            if (res.success) {
-                $("#success").html(res.message);
-                $("#success").show(500).delay(2000).hide(500);
-                $(':input').val('');
-                pictures = ['<input id="upload" type="file" onchange="uploadImage()" accept="image/*" style="display:none">' +
-                '<label for="upload">' +
-                '<span class="glyphicon glyphicon-plus"></span> Add Image' +
-                '<img src="/images/add_image_icon.png" class="thumbnail" width="200" height="200">' +
-                '</label>'];
-                drawImages();
-            }
-            else {
-                $("#error").html(res.message);
-                $("#error").show(500).delay(2000).hide(500);
-            }
-        }
+    function getParameterByName(name) {
+        var url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+        if (!results) return '';
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
 </script>
 </body>

@@ -39,17 +39,16 @@ router.post('/list', function(req,res){
     console.log("LIST: "+req.body.price);
     console.log("LIST: "+req.body.images);
 
-    var input = "VALUES('"+req.body.title+"','"+
-        req.body.desc+"'," +
-        "'misc','" +
+    var input = "VALUES('"+req.body.name+"','"+
+        req.body.description+"','" +
+        req.body.category+"','" +
         req.body.price+"','" +
-        JSON.stringify(req.body.images)+"','" +
-        10+"'," +
-        "'SmithBob'," +
-        "'ULTRA MISC'" +
-        ");"
+        JSON.stringify(req.body.image)+"','" +
+        req.body.stock+"','" +
+        "SmithBob','" +
+        req.body.parent_category+"'" +
+        ");";
     console.log("INPUT: " + input);
-    // VALUES("+req.body.title+","+req.body.desc+",human,"+req.body.price+","+req.body.images+",10,Jesus,God)
     client.query("INSERT INTO Items(name,description,category,price,image,stock,seller,parent_category)" +
         input, function(error, result){
         // done();

@@ -161,7 +161,6 @@
             success: function(response){
                 console.log("RES: " + response);
                 response = JSON.parse(response);
-                response.image = JSON.parse(response.image);
                 response.price = response.price.replace("$","");
                 listing = response;
                 autoFill();

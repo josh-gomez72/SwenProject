@@ -64,8 +64,6 @@
                 response = JSON.parse(response);
                 currentListings = '';
                 for (i in response){
-                    // (i == 0) continue;
-                    //response[i].image = JSON.parse(response[i].image);
                     makeListingItem(response[i], i);
                 }
                 $("#itemList").html(currentListings);

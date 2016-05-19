@@ -25,12 +25,15 @@ router.post('/edit', function(req, res, next) {
   query += "description='"+req.body.description+"',";
   query += "category='"+req.body.category+"',";
   query += "price='"+req.body.price+"',";
-  query += "image='{"
 
-  for (i in req.body.image){
-    query+= "\""+req.body.image[i];
-    if (i != req.body.image.length-1) query+= "\",";
-    else query+= "\"}',";
+  if (req.body.image.length == 0) query += "image='{}',";
+  else {
+    query += "image='{";
+    for (i in req.body.image) {
+      query += "\"" + req.body.image[i];
+      if (i != req.body.image.length - 1) query += "\",";
+      else query += "\"}',";
+    }
   }
 
   query += "stock='"+req.body.stock+"',";

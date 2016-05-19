@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "theMarket",
+=======
+  "name": "SwenProject",
+>>>>>>> origin/master
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -13,6 +17,10 @@
     "express": "~4.13.1",
     "morgan": "~1.6.1",
     "pg": "^4.5.5",
+<<<<<<< HEAD
+=======
+    "pg-native": "^1.10.0",
+>>>>>>> origin/master
     "serve-favicon": "~2.3.0"
   }
 }

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+	<p>You have <%= cart %> items in your cart.</p>
+	<p>Your total is $<%= cost %>.</p>
+	<p>You are viewing your cart.</p>
+	<form action="purchaseTEST" method="get">
+        <input id="submit" type="submit" value="Go To Payment">
+    </form>
+	<form action="removeFromCartTEST" method="get">	
+		Quantity: <input type="number" placeholder="1" name ="quantity"><br>
+		<% for(var i=0; i < list.length; i++) { %>
+			<input type="radio" name="item" value=<%- list[i].id %>><%= list[i].item[0].name %>, <%= list[i].quantity %>
+		<% } %>
+    <input id="submit" type="submit" value="remove from cart">
+    </form>
+  </body>
+</html>

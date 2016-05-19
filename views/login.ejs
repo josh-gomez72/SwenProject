@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/registerStyle.css' />
+</head>
+<body>
+<div class = "register-block">
+    <h1><%= title %></h1>
+    <form action="login/confirmation" method="get">
+        <!--Username: <br>-->
+        <input type="text" placeholder="Username" name ="username"><br>
+        <!--Password: <br>-->
+        <input type="password" placeholder="Password" name ="password"><br>
+        <input id="submit" type="submit" value="Submit">
+    </form>
+    Don't have an account? <a href="/register">Register here!</a>
+</div>
+</body>
+</html>

@@ -1,21 +1,18 @@
 var express = require('express');
 var router = express.Router();
+
 // var pg = require('pg').native; //used for lab machines
 var pg = require('pg'); //used for windows
-var loggedUser = null;
+
 //var database = "postgres://gomezjosh:password@depot:5432/SwenGroup9";
 var database = "postgres://tihxgzxemzbafr:hiCzGMi1vENgac3Cmd-UyZDeZ-@ec2-54-235-208-3.compute-1.amazonaws.com:5432/defa0fcjs2b02k?ssl=true";
 var client = new pg.Client(database);
 client.connect();
 
-router.get('/', function(req, res, next) {
-	res.redirect('/browse');
-});
+var loggedUser = null;
+var cart = [];
+var cartCost = 0;
 
-// var database = "postgres://gomezjosh:password@depot:5432/SwenGroup9";
- var database = "postgres://tihxgzxemzbafr:hiCzGMi1vENgac3Cmd-UyZDeZ-@ec2-54-235-208-3.compute-1.amazonaws.com:5432/defa0fcjs2b02k?ssl=true";
- var client = new pg.Client(database);
- client.connect();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -32,11 +29,11 @@ router.get('/indexTEST', function(req, res, next) {
 	}
 });
 
-router.get('/logoutTEST', function(req, res, next) {
+router.get('/logout', function(req, res, next) {
 	loggedUser = null;
 	cart = [];
 	cartCost = 0;
-	res.redirect('loginTEST');
+	res.redirect('/login');
 });
 
 router.get('/loginTEST', function(req, res, next) {
@@ -165,12 +162,14 @@ router.get('/purchaseTEST', function(req, res, next) {
 router.get('/browse', function(req, res, next) {
   res.render('browse', {title: 'Browse', resultPlace: {}});
 });
+
 /**
 router.get('/browse/:catagory', function(req, res, next) {
 	var header = 'Browse in ' + req.params.catagory;
 	res.render('browse', {title: 'Browse'});
 });
 */
+
 router.get('/browse-location/:location', function(req, res, next) {
 	var header = 'Browse in ' + req.params.location;
 	res.render('browse', {title: 'Browse'});
@@ -184,12 +183,26 @@ router.get('/login', function(req, res, next){
 	res.render('login', {title: 'Login'});
 });
 
-router.get('/login/confirmation', function (req, res, next){
-	console.log(req.query)
-	var username = req.query.username;
-	var password = req.query.password;
-	
-	client.query("")	
+router.post('/login', function (req, res, next){
+	if (req.body.username){
+		// Query database for user. If user exists, allow login.
+		var query = client.query("SELECT * FROM Users WHERE username = '" + req.body.username + "';", function (error, result) {
+			if (error){ console.log(error);}
+			else {
+				if (result.rows.length > 0){	// A user exists with this name, successful login.
+					loggedUser = req.body.username;
+					cartSize = 0;
+					cart = [];
+					res.redirect('/browse');
+				}
+				else {	// No existing username, fail to log in.
+					res.render('login', {title: 'The Market', user:loggedUser, cart:cart.length, err: 'Username or password incorrect. Please try again.'});
+				}
+			}
+		});
+	} else {		// no username was passed in.
+		res.render('login', {title: 'The Market'});
+	}
 	
 });
 

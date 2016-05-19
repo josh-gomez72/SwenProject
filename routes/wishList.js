@@ -12,55 +12,6 @@ client.connect();
 router.get('/', function(req, res, next) {
     res.render('wishlist');
 });
-// router.get('/buildTable', function(req, res, next) {
-//     res.redirect('/wishlist');
-//     var query = "CREATE TABLE WishList(";
-//     query += "id serial primary key,";
-//     query+= "userid int references Users(id),";
-//     query+= "itemid int";
-//     query+= ");";
-//
-//     console.log("QUERY: " + query);
-//     client.query(query, function(error, result){
-//         if (error){
-//             console.error('Failed to execute query');
-//             console.error(error);
-//             return;
-//         }
-//         console.log("BUILT TABLE: WishList");
-//     });
-// });
-
-// router.get('/addRandom', function(req, res, next) {
-//     var query = "INSERT INTO WishList(userid,itemid) ";
-//     query += "VALUES ('1','25')";
-//
-//     console.log("QUERY: " + query);
-//     client.query(query, function(error, result){
-//         if (error){
-//             console.error('Failed to execute query');
-//             console.error(error);
-//             return;
-//         }
-//         console.log("ADDED TO TABLE: WishList");
-//         //res.redirect('/wishlist');
-//     });
-// });
-
-// router.get('/dropTable', function(req, res, next) {
-//     res.redirect('/wishlist');
-//     var query = "DROP TABLE WishList";
-//
-//     console.log("QUERY: " + query);
-//     client.query(query, function(error, result){
-//         if (error){
-//             console.error('Failed to execute query');
-//             console.error(error);
-//             return;
-//         }
-//         console.log("DROPPED TABLE: WishList");
-//     });
-// });
 
 router.post('/remove', function(req, res, next) {
     client.query("DELETE FROM WishList WHERE id="+req.body.id+";", function(error, result){

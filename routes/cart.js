@@ -13,7 +13,6 @@ router.get('/', function(req, res, next) {
   res.render('cart');
 });
 
-//  TODO - BUILD CART TABLE FOR REASONS
 router.get('/buildTable', function(req, res, next) {
     res.redirect('/cart');
     var query = "CREATE TABLE Cart(";

@@ -11,7 +11,7 @@ var sell = require('./routes/sell');
 var buy = require('./routes/buy');
 var cart = require('./routes/cart');
 var myListings = require('./routes/myListings');
-var wishList = require('./routes/wishlist');
+var wishList = require('./routes/wishList');
 
 var app = express();
 

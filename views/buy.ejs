@@ -10,31 +10,60 @@
 </head>
 
 <body>
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
+<h1>The Market</h1>
+<p>New Zealand’s Online Community Farmer's Market</p>
+<nav class="navbar navbar-default">
+    <div class="container-fluid"> <!-- top nav section -->
         <div class="navbar-header">
-            <a class="navbar-brand" href="">ROMAPLZ</a>
+            <a class="navbar-brand" href="/browse">The Market</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-            <li><a href="/sell"><span class="glyphicon glyphicon-usd"></span> Sell</a></li>
+            <li class="active"><a href="/browse">Browse</a></li>
+            <li><a href="/sell">Sell</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="/wishlist"><span class="glyphicon glyphicon-star-empty"></span> My Wishlist </a></li>
             <li><a href="/myListings"><span class="glyphicon glyphicon-tag"></span> My Listings </a></li>
-            <li><a href="/cart"><span class="glyphicon glyphicon-shopping-cart"></span> View Cart </a></li>
+            <li><a href="/cartTest"><span class="glyphicon glyphicon-shopping-cart"></span> View Cart </a></li>
             <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         </ul>
-        <div class="pull-right">
-            <form class="col-sm-5 col-md-5 navbar-form" role="search">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                    </div>
+    </div> <!-- Close container fluid div-->
+    <div class="container-fluid search-nav"> <!-- bottom nav line -->
+        <form action = "/search" class="form-horizontal" role="search" id="search-form">
+            <div class="form-group">
+                <div class = "col-md-4">
+                    <input type="text" class="form-control" placeholder="Search">
                 </div>
-            </form>
-        </div>
+                <div class="col-md-3">
+                    <select class="form-control" name="section_id">
+                        <option value="all">All Catagories</option>
+                        <option value="bakery">Bakery</option>
+                        <option value="dairy-eggs">Dairy and Eggs</option>
+                        <option value="fruit">Fruit</option>
+                        <option value="vegeables">Vegetables</option>
+                        <option value="other-catagory">Other</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control" name="category_id">
+                        <option value="all">All Locations</option>
+                        <option value="auckland">Auckland</option>
+                        <option value="christchurch">Christchurch</option>
+                        <option value="dunedin">Dunedin</option>
+                        <option value="hamilton">Hamilton</option>
+                        <option value="napier-hastings">Napier-Hastings</option>
+                        <option value="nelson">Nelson</option>
+                        <option value="palmerston-north">Palmerston North</option>
+                        <option value="tauranga">Tauranga</option>
+                        <option value="wellington">Wellington</option>
+                        <option value="other-location">Other</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Search</button>
+                </div>
+            </div>
+        </form>
     </div>
 </nav>
 
@@ -68,8 +97,8 @@
                 <input type="number" value="1" min="1" class="form-control text-center" id="quantity">
             </div>
 
-            <button id="cart" type="button" onclick="addToCart()" class="btn btn-warning">Add to Cart <span class="glyphicon glyphicon-shopping-cart"></span></button>
-            <button type="button" onclick="addToWishList()" class="btn btn-warning">Add to Wishlist <span class="glyphicon glyphicon-star-empty"></span></button>
+            <button id="cart" type="button" onclick="addToCart()" class="btn btn-success market">Add to Cart <span class="glyphicon glyphicon-shopping-cart"></span></button>
+            <button type="button" onclick="addToWishList()" class="btn btn-success market">Add to Wishlist <span class="glyphicon glyphicon-star-empty"></span></button>
         </div>
         <div id="success" class="text-center alert alert-success" style="display:none"></div>
         <div id="error" class="text-center alert alert-danger" style="display:none"></div>

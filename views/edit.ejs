@@ -108,7 +108,7 @@
     var pictures = ['<input id="upload" type="file" onchange="uploadImage()" accept="image/*" style="display:none">' +
     '<label for="upload">' +
     '<span class="glyphicon glyphicon-plus"></span> Add Image' +
-    '<img src="/images/add_image_icon.png" class="thumbnail">' +
+    '<img src="/images/add_image_icon.png" class="thumbnail" width="200" height="200">' +
     '</label>'];
 
     var listing;
@@ -172,7 +172,7 @@
             processData: false,
             contentType: false,
             success: function (response) {
-                pictures.push('<img src="'+response+'" class="thumbnail">');
+                pictures.push('<img src="'+response+'" class="thumbnail" width="200" height="200">');
                 listing.image.push(response);
                 drawImages();
             }

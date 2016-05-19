@@ -73,6 +73,22 @@
                 '</div></div></div>';
         $("#itemList").html(out);
     }
+    getItems();
+    function getItems(){
+        var out = {userID:1};
+        $.ajax({
+            url: "/cart/items",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(out),
+            success: function (response) {
+                response = JSON.parse(response);
+                for (i in response){
+                    console.log("Item " + i + ":"+ JSON.stringify(response[i]));
+                }
+            }
+        });
+    }
 
 
 </script>

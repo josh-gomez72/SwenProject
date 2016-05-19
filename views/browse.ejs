@@ -26,7 +26,7 @@
             <li><a href="/wishlist"><span class="glyphicon glyphicon-star-empty"></span> My Wishlist </a></li>
             <li><a href="/myListings"><span class="glyphicon glyphicon-tag"></span> My Listings </a></li>
             <li><a href="/cartTest"><span class="glyphicon glyphicon-shopping-cart"></span> View Cart </a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         </ul>
     </div> <!-- Close container fluid div-->
     <div class="container-fluid search-nav"> <!-- bottom nav line -->
@@ -37,7 +37,7 @@
                 </div>
                 <div class="col-md-3">
                     <select class="form-control" name="section_id">
-                        <option value="all">All Catagories</option>
+                        <option value="all">All Categories</option>
                         <option value="bakery">Bakery</option>
                         <option value="dairy-eggs">Dairy and Eggs</option>
                         <option value="fruit">Fruit</option>
@@ -71,68 +71,68 @@
     <h2><%=title%></h2>
     <div>
         <div class="col-md-2">
-            <h3> <a href="/browse/Bakery">Bakery</a></h3>
+            <h3> <a href="/search?p=Bakery">Bakery</a></h3>
             <ul>
-                <li> <a href="/browse/Bread">Bread</a></li>
-                <li> <a href="/browse/Biscuits">Biscuits</a></li>
-                <li> <a href="/browse/Cakes">Cakes</a></li>
-                <li> <a href="/browse/Pastries">Pastries</a></li>
-                <li> <a href="/browse/Wraps">Wraps</a></li>
-                <li class="other"> <a href="/browse/Other-Bakery">Other</a></li>
+                <li> <a href="/search?c=Bread">Bread</a></li>
+                <li> <a href="/search?c=Biscuits">Biscuits</a></li>
+                <li> <a href="/search?c=Cakes">Cakes</a></li>
+                <li> <a href="/search?c=Pastries">Pastries</a></li>
+                <li> <a href="/search?c=Wraps">Wraps</a></li>
+                <li class="other"> <a href="/search/?p=Bakery&c='Other'">Other</a></li>
             </ul>
         </div>
         <div class="col-md-2">
-            <h3> <a href="/browse/Dairy-and-Eggs">Dairy and Eggs</a></h3>
+            <h3> <a href="/search?p=Dairy and Eggs">Dairy and Eggs</a></h3>
             <ul>
-                <li> <a href="/browse/Butter">Butter</a></li>
-                <li> <a href="/browse/Cheese">Cheese</a></li>
-                <li> <a href="/browse/Eggs">Eggs</a></li>
-                <li> <a href="/browse/Milk">Milk</a></li>
-                <li> <a href="/browse/Yogurt">Yogurt</a></li>
-                <li> <a href="/browse/Dairy-Alternatives">Dairy Alternatives</a></li>
-                <li class="other"> <a href="/browse/Other-Dairy">Other</a></li>
+                <li> <a href="/search?c=Butter">Butter</a></li>
+                <li> <a href="/search?c=Cheese">Cheese</a></li>
+                <li> <a href="/search?c=Eggs">Eggs</a></li>
+                <li> <a href="/search?c=Milk">Milk</a></li>
+                <li> <a href="/search?c=Yogurt">Yogurt</a></li>
+                <li> <a href="/search?c=Dairy Alternatives">Dairy Alternatives</a></li>
+                <li class="other"> <a href="/search?p=Dairy and Eggs&c=Other">Other</a></li>
             </ul>
         </div>
         <div class="col-md-2">
-            <h3> <a href="/browse/Fruit">Fruit</a></h3>
+            <h3> <a href="/search?p=Fruit">Fruit</a></h3>
             <ul>
-                <li> <a href="/browse/Apples-and-Pears">Apples and Pears</a></li>
-                <li> <a href="/browse/Berries">Berries</a></li>
-                <li> <a href="/browse/Citrus">Citrus</a></li>
-                <li> <a href="/browse/Stone-Fruit">Stone Fruit</a></li>
-                <li> <a href="/browse/Tropical-Fruit">Tropical Fruit</a></li>
-                <li> <a href="/browse/Oganic-Fruit">Organic Fruit</a></li>
-                <li class="other"> <a href="/browse/Other-Fruit">Other</a></li>
+                <li> <a href="/search?c=Apples and Pears">Apples and Pears</a></li>
+                <li> <a href="/search?c=Berries">Berries</a></li>
+                <li> <a href="/search?c=Citrus">Citrus</a></li>
+                <li> <a href="/search?c=Stone Fruit">Stone Fruit</a></li>
+                <li> <a href="/search?c=Tropical Fruit">Tropical Fruit</a></li>
+                <li> <a href="/search?c=Organic Fruit">Organic Fruit</a></li>
+                <li class="other"> <a href="/search?p=Fruit&c=Other">Other</a></li>
             </ul>
         </div>
         <div class="col-md-2">
             <h3>
-                <a href="/browse/Vegetables" class="brows">Vegetables</a>
+                <a href="/search?p=Vegetables" class="brows">Vegetables</a>
             </h3>
             <ul>
-                <li> <a href="/browse/Beans-and-Peas">Beans and Peas</a></li>
-                <li> <a href="/browse/Chillies-and-Peppers">Chillies and Peppers</a></li>
-                <li> <a href="/browse/Cucumber-and-Zucchini">Cucumber and Zucchini</a></li>
-                <li> <a href="/browse/Herbs">Herbs</a></li>
-                <li> <a href="/browse/Leafy-Vegetables">Leafy Vegetables</a></li>
-                <li> <a href="/browse/Pumpkin-and-Squash">Pumpkin and Squash</a></li>
-                <li> <a href="/browse/Root-Vegetables">Root Vegetables</a></li>
-                <li> <a href="/browse/Tomatoes">Tomatoes</a></li>
-                <li> <a href="/browse/Organic-Vegetables">Organic Vegetables</a></li>
-                <li class="other"> <a href="/browse/Other-Vegetables">Other</a></li>
+                <li> <a href="/search?c=Beans and Peas">Beans and Peas</a></li>
+                <li> <a href="/search?c=Chillies and Peppers">Chillies and Peppers</a></li>
+                <li> <a href="/search?c=Cucumber and Zucchini">Cucumber and Zucchini</a></li>
+                <li> <a href="/search?c=Herbs">Herbs</a></li>
+                <li> <a href="/search?c=Leafy Vegetables">Leafy Vegetables</a></li>
+                <li> <a href="/search?c=Pumpkin and Squash">Pumpkin and Squash</a></li>
+                <li> <a href="/search?c=Root Vegetables">Root Vegetables</a></li>
+                <li> <a href="/search?c=Tomatoes">Tomatoes</a></li>
+                <li> <a href="/search?c=Organic Vegetables">Organic Vegetables</a></li>
+                <li class="other"> <a href="/search?p=Vegetables&c=Other">Other</a></li>
             </ul>
         </div>
         <div class="col-md-2">
-            <h3> <a href="/browse/Other">Other</a></h3>
+            <h3> <a href="/search?p=Other">Other</a></h3>
             <ul>
-                <li> <a href="/browse/Antipasto">Antipasto</a></li>
-                <li> <a href="/browse/Drinks">Drinks</a></li>
-                <li> <a href="/browse/Condiments">Condiments</a></li>
-                <li> <a href="/browse/Oils-and-Vinegers">Oils and Vinegars</a></li>
-                <li> <a href="/browse/Sauces">Sauces</a></li>
-                <li> <a href="/browse/Spreads">Spreads</a></li>
-                <li> <a href="/browse/Sweets-and-Snacks">Sweets and Snacks</a></li>
-                <li class="other"> <a href="/browse/Other">Other</a></li>
+                <li> <a href="/search?c=Antipasto">Antipasto</a></li>
+                <li> <a href="/search?c=Drinks">Drinks</a></li>
+                <li> <a href="/search?c=Condiments">Condiments</a></li>
+                <li> <a href="/search?c=Oils and Vinegars">Oils and Vinegars</a></li>
+                <li> <a href="/search?c=Sauces">Sauces</a></li>
+                <li> <a href="/search?c=Spreads">Spreads</a></li>
+                <li> <a href="/search?c=Sweets and Snacks">Sweets and Snacks</a></li>
+                <li class="other"> <a href="/search?p=Other&c=Other">Other</a></li>
             </ul>
         </div>
         <div class="col-md-2">

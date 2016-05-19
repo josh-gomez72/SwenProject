@@ -25,7 +25,7 @@
             <li><a href="/wishlist"><span class="glyphicon glyphicon-star-empty"></span> My Wishlist </a></li>
             <li><a href="/myListings"><span class="glyphicon glyphicon-tag"></span> My Listings </a></li>
             <li><a href="/cartTest"><span class="glyphicon glyphicon-shopping-cart"></span> View Cart </a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         </ul>
     </div> <!-- Close container fluid div-->
     <div class="container-fluid search-nav"> <!-- bottom nav line -->
@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-md-3">
                     <select class="form-control" name="section_id">
-                        <option value="all">All Catagories</option>
+                        <option value="all">All Categories</option>
                         <option value="bakery">Bakery</option>
                         <option value="dairy-eggs">Dairy and Eggs</option>
                         <option value="fruit">Fruit</option>
@@ -115,7 +115,22 @@
 </body>
 <script>
     var listing;
-    getItem();
+    var user = "";
+
+    init();
+    function init(){
+        getItem();
+        $.ajax({
+            url: "/user",
+            type: "GET",
+            contentType: "application/json",
+            success: function(response){
+                console.log(response);
+                user = JSON.parse(response).username;
+            }
+        });
+    }
+
     function getItem(){
         $.ajax({
             url: "/buy/item",
@@ -175,7 +190,7 @@
 
     function addToWishList(){
         console.log("adding " + listing.itemid);
-        var out = {itemID:listing.itemid};
+        var out = {username:user,itemID:listing.itemid};
         $.ajax({
             url: "/wishlist/add",
             type: "POST",

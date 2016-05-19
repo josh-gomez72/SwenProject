@@ -19,8 +19,7 @@ router.get('/edit', function(req, res, next) {
 router.post('/edit', function(req, res, next) {
   
   console.log("RECIEVED: " + JSON.stringify(req.body));
-  var query = "SELECT * FROM Items WHERE seller='SmithBob';";
-  query = "UPDATE Items SET ";
+  var query = "UPDATE Items SET ";
   query += "name='"+req.body.name+"',";
   query += "description='"+req.body.description+"',";
   query += "category='"+req.body.category+"',";
@@ -69,9 +68,9 @@ router.post('/remove', function(req, res, next) {
 });
 
 router.post('/getListings', function(req,res){
-  console.log("GETTING LISTINGS FOR USERNAME: "+req.body.user);
+  console.log("GETTING LISTINGS FOR USERNAME: "+req.body.username);
 
-  client.query("SELECT * FROM Items WHERE seller='"+req.body.user+"';", function(error, result){
+  client.query("SELECT * FROM Items WHERE seller='"+req.body.username+"';", function(error, result){
     if (error){
       console.error('Failed to execute query');
       console.error(error);

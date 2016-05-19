@@ -16,11 +16,11 @@ router.get('/', function(req, res, next) {
 
 router.get('/buildTable', function(req, res, next) {
     res.redirect('/cart');
-    var query = "CREATE TABLE Cart(";
+    var query = "CREATE TABLE WishList(";
     query += "id serial primary key,";
-    query+= "userid int references Users(id),";
-    query+= "itemid int,";
-    query+= "quantity int";
+    query+= "username varchar(255) references Users(username),";
+    query+= "itemid int";
+    // query+= "quantity int";
     query+= ");";
 
     console.log("QUERY: " + query);
@@ -58,7 +58,7 @@ router.post('/items', function(req,res,next){
       console.error(error);
       return;
     }
-    console.log("ALL ITEM IN TABLE Cart: " + JSON.stringify(result.rows));
+    console.log("ALL ITEMS IN TABLE Cart: " + JSON.stringify(result.rows));
 
     res.write(JSON.stringify(result.rows));
     res.end();
@@ -66,8 +66,8 @@ router.post('/items', function(req,res,next){
 });
 
 router.get('/dropTable', function(req, res, next) {
-    res.redirect('/dropTable');
-    var query = "DROP TABLE Cart";
+
+    var query = "DROP TABLE WishList";
 
     console.log("QUERY: " + query);
     client.query(query, function(error, result){

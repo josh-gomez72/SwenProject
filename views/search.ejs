@@ -18,30 +18,30 @@
             <a class="navbar-brand" href="/browse">The Market</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a href="/browse">Browse</a></li>
+            <li class="active"><a href="/browse">Browse</a></li>
             <li><a href="/sell">Sell</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="/wishlist"><span class="glyphicon glyphicon-star-empty"></span> My Wishlist </a></li>
+            <li><a href="/wishlist"><span class="glyphicon glyphicon-star-empty"></span> My Wishlist </a></li>
             <li><a href="/myListings"><span class="glyphicon glyphicon-tag"></span> My Listings </a></li>
             <li><a href="/cartTest"><span class="glyphicon glyphicon-shopping-cart"></span> View Cart </a></li>
             <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         </ul>
     </div> <!-- Close container fluid div-->
     <div class="container-fluid search-nav"> <!-- bottom nav line -->
-        <form action = "/search" class="form-horizontal" role="search" id="search-form">
+        <div class="form-horizontal" role="search" id="search-form">
             <div class="form-group">
                 <div class = "col-md-4">
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input type="text" class="form-control" placeholder="Search" id="searchText">
                 </div>
                 <div class="col-md-3">
-                    <select class="form-control" name="section_id">
-                        <option value="all">All Categories</option>
-                        <option value="bakery">Bakery</option>
-                        <option value="dairy-eggs">Dairy and Eggs</option>
-                        <option value="fruit">Fruit</option>
-                        <option value="vegeables">Vegetables</option>
-                        <option value="other-catagory">Other</option>
+                    <select class="form-control" name="section_id" id="categories">
+                        <option>All Categories</option>
+                        <option>Bakery</option>
+                        <option>Dairy and Eggs</option>
+                        <option>Fruit</option>
+                        <option>Vegetables</option>
+                        <option>Other</option>
                     </select>
                 </div>
                 <div class="col-md-3">
@@ -60,16 +60,16 @@
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Search</button>
+                    <button onclick="runSearch()" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Search</button>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 </nav>
 
 <div class="container">
     <div class="well">
-        <h1><strong> My Wishlist </strong></h1>
+        <h1><strong> Search Items </strong></h1>
         <br><br>
         <div id="itemList"></div>
     </div>
@@ -81,24 +81,13 @@
     var currentListings = "";
     var user = "";
 
-    init()
-    function init() {
-        $.ajax({
-            url: "/user",
-            type: "GET",
-            contentType: "application/json",
-            success: function(response){
-                console.log(response);
-                user = JSON.parse(response).username;
-                getListings();
-            }
-        });
-    }
-
+    getListings();
     function getListings(){
-        var out = {username:user};
+        var out = {category:getParameterByName("c"),parentCategory:getParameterByName("p"),searchString:getParameterByName("s")};
+        $("#searchText").val(out.searchString);
+        if (out.parentCategory != '')$("#categories").val(out.parentCategory);
         $.ajax({
-            url: "/wishlist/items",
+            url: "/search",
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(out),
@@ -129,29 +118,33 @@
                 '</div></div>';
     }
 
-    function removeListing(index){
-        console.log("removing " + index);
-        var out = currentListingsJSON[index];
-        $.ajax({
-            url: "/wishlist/remove",
-            type: "POST",
-            contentType: "application/json",
-            data: JSON.stringify(out),
-            success: function(response){
-                currentListingsJSON.splice(index,1);
-                response = JSON.parse(response);
-                alert(response.message);
-                drawListings();
-            }
-        });
-    }
-
     function drawListings(){
         currentListings = "";
         for (i in currentListingsJSON){
             makeListingItem(currentListingsJSON[i], i);
         }
         $("#itemList").html(currentListings);
+    }
+
+    function runSearch(){
+        console.log("Text: " + $("#searchText").val());
+        console.log("Category: " + $("#categories").val());
+        var out = "?";
+        if ($("#categories").val() != "All Categories") {
+            out +="p="+ $("#categories").val() + "&";
+        }
+        out +="s="+ $("#searchText").val();
+        window.location.href = "/search"+out;
+    }
+
+    function getParameterByName(name) {
+        var url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+        if (!results) return '';
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
 
 </script>

@@ -19,6 +19,11 @@ router.get('/', function(req, res, next) {
 	res.redirect('/login');
 });
 
+router.get('/logout', function(req, res, next) {
+	loggedUser = null;
+	res.redirect('/login');
+});
+
 router.get('/user', function(req, res, next) {
     console.log("CURRENT_USER: " + loggedUser);
     res.end(JSON.stringify({username:loggedUser}));

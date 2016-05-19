@@ -25,7 +25,7 @@
             <li><a href="/wishlist"><span class="glyphicon glyphicon-star-empty"></span> My Wishlist </a></li>
             <li><a href="/myListings"><span class="glyphicon glyphicon-tag"></span> My Listings </a></li>
             <li><a href="/cartTest"><span class="glyphicon glyphicon-shopping-cart"></span> View Cart </a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         </ul>
     </div> <!-- Close container fluid div-->
     <div class="container-fluid search-nav"> <!-- bottom nav line -->
@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-md-3">
                     <select class="form-control" name="section_id">
-                        <option value="all">All Catagories</option>
+                        <option value="all">All Categories</option>
                         <option value="bakery">Bakery</option>
                         <option value="dairy-eggs">Dairy and Eggs</option>
                         <option value="fruit">Fruit</option>
@@ -108,9 +108,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="category">Category:</label>
                 <div class="col-sm-10">
-                    <!--<input type="text" class="form-control disabled" id="category" placeholder="Category">-->
-
-                    <select class="form-control" id="category" onchange="alert($(this).val())"></select>
+                    <select class="form-control" id="category"></select>
                 </div>
             </div>
 
@@ -129,7 +127,7 @@
             </div>
 
             <div class="text-center">
-                <button onclick="listItem()" class="btn btn-default">
+                <button onclick="listItem()" class="btn btn-success market btn-lg">
                     <span class="glyphicon glyphicon-ok"></span> List Item
                 </button>
             </div>
@@ -146,34 +144,23 @@
     '</label>'];
 
     var imagePaths = [];
+    var user = "";
 
-    function parentChanged(val){
-        console.log("Parent Category: " + val);
-
+    init();
+    function init() {
+        drawImages();
+        parentChanged("Bakery");
         $.ajax({
-            url: "/categories",
+            url: "/user",
             type: "GET",
             contentType: "application/json",
             success: function(response){
-                response = JSON.parse(response);
-                var category = {};
-                for (i in response){
-                    if (response[i].parent == val){
-                        category = response[i];
-                    }
-                }
-                console.log(JSON.stringify(category));
-                var out = "";
-                for (i in category.children){
-//                    category.children[i]
-                    out+='<option>'+category.children[i]+'</option>';
-                }
-                $("#category").html(out);
+                console.log(response);
+                user = JSON.parse(response).username;
             }
         });
     }
 
-    drawImages();
     function drawImages(){
         var output = "";
         for (i in pictures){
@@ -211,7 +198,7 @@
     }
 
     function listItem(){
-        var out = {name:$("#title").val(),description:$("#description").val(),category:$("#category").val(),price:$("#price").val(),image:imagePaths,stock:$("#quantity").val(),seller:"SmithBob",parent_category:$("#parentCategory").val()};
+        var out = {name:$("#title").val(),description:$("#description").val(),category:$("#category").val(),price:$("#price").val(),image:imagePaths,stock:$("#quantity").val(),seller:user,parent_category:$("#parentCategory").val()};
         if ($("#price").val() < 0) {
             $("#price").val(0);
             $("#error").html("<strong>Error: </strong> quantity cannot be less than zero");
@@ -228,24 +215,46 @@
                 handleResponse(JSON.parse(response));
             }
         });
+    }
 
-        function handleResponse(res){
-            if (res.success) {
-                $("#success").html(res.message);
-                $("#success").show(500).delay(2000).hide(500);
-                $(':input').val('');
-                pictures = ['<input id="upload" type="file" onchange="uploadImage()" accept="image/*" style="display:none">' +
-                '<label for="upload">' +
-                '<span class="glyphicon glyphicon-plus"></span> Add Image' +
-                '<img src="/images/add_image_icon.png" class="thumbnail" width="200" height="200">' +
-                '</label>'];
-                imagePaths = [];
-                drawImages();
+    function parentChanged(val){
+        $.ajax({
+            url: "/categories",
+            type: "GET",
+            contentType: "application/json",
+            success: function(response){
+                response = JSON.parse(response);
+                var category = {};
+                for (i in response){
+                    if (response[i].parent == val){
+                        category = response[i];
+                    }
+                }
+                var out = "";
+                for (i in category.children){
+                    out+='<option>'+category.children[i]+'</option>';
+                }
+                $("#category").html(out);
             }
-            else {
-                $("#error").html(res.message);
-                $("#error").show(500).delay(2000).hide(500);
-            }
+        });
+    }
+
+    function handleResponse(res){
+        if (res.success) {
+            $("#success").html(res.message);
+            $("#success").show(500).delay(2000).hide(500);
+            $(':input').val('');
+            pictures = ['<input id="upload" type="file" onchange="uploadImage()" accept="image/*" style="display:none">' +
+            '<label for="upload">' +
+            '<span class="glyphicon glyphicon-plus"></span> Add Image' +
+            '<img src="/images/add_image_icon.png" class="thumbnail" width="200" height="200">' +
+            '</label>'];
+            imagePaths = [];
+            drawImages();
+        }
+        else {
+            $("#error").html(res.message);
+            $("#error").show(500).delay(2000).hide(500);
         }
     }
 </script>

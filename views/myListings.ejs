@@ -25,7 +25,7 @@
             <li><a href="/wishlist"><span class="glyphicon glyphicon-star-empty"></span> My Wishlist </a></li>
             <li class="active"><a href="/myListings"><span class="glyphicon glyphicon-tag"></span> My Listings </a></li>
             <li><a href="/cartTest"><span class="glyphicon glyphicon-shopping-cart"></span> View Cart </a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         </ul>
     </div> <!-- Close container fluid div-->
     <div class="container-fluid search-nav"> <!-- bottom nav line -->
@@ -79,13 +79,25 @@
 <script>
 
     var currentListingsJSON = [];
-
     var currentListings = "";
+    var user = "";
 
-    getListings();
+    init();
+    function init() {
+        $.ajax({
+            url: "/user",
+            type: "GET",
+            contentType: "application/json",
+            success: function(response){
+                console.log(response);
+                user = JSON.parse(response).username;
+                getListings();
+            }
+        });
+    }
 
     function getListings(){
-        var out = {user:"SmithBob"};
+        var out = {username:user};
         $.ajax({
             url: "/myListings/getListings",
             type: "POST",

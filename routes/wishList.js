@@ -30,7 +30,7 @@ router.post('/remove', function(req, res, next) {
 router.post('/items', function(req,res,next){
     console.log(JSON.stringify(req.body));
 
-    client.query("SELECT * FROM WishList, Items WHERE WishList.userid="+req.body.userID+"  AND Items.itemid=WishList.itemid;", function(error, result){
+    client.query("SELECT * FROM WishList, Items WHERE WishList.username='"+req.body.username+"'  AND Items.itemid=WishList.itemid;", function(error, result){
         if (error){
             console.error('Failed to execute query');
             console.error(error);
@@ -44,8 +44,8 @@ router.post('/items', function(req,res,next){
 });
 
 router.post('/add', function(req, res, next) {
-    var query = "INSERT INTO WishList(userid,itemid) ";
-    query += "VALUES ('1','"+req.body.itemID+"')";
+    var query = "INSERT INTO WishList(username,itemid) ";
+    query += "VALUES ('"+req.body.username+"','"+req.body.itemID+"')";
 
     console.log("QUERY: " + query);
     client.query(query, function(error, result){
@@ -54,7 +54,7 @@ router.post('/add', function(req, res, next) {
             console.error(error);
             return;
         }
-        console.log("ADDED TO TABLE: WishList: " + 1 + ", " + req.body.itemID);
+        console.log("ADDED TO TABLE: WishList: " + req.body.username + ", " + req.body.itemID);
         res.write(JSON.stringify({success:true, message:"<strong>Item added to wishlist!</strong>"}));
         res.end();
     });

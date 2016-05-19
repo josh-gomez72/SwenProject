@@ -156,6 +156,7 @@
                 response = JSON.parse(response);
                 response.price = response.price.replace("$","");
                 listing = response;
+                if (listing.image == null) listing.image = [];
                 autoFill();
             }
         });

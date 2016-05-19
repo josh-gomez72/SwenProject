@@ -3,8 +3,8 @@ var router = express.Router();
 var multer = require('multer');
 var fs = require('fs');
 
-//var pg = require('pg'); //used for windows
-var pg = require('pg').native; // used for linux
+var pg = require('pg'); //used for windows
+// var pg = require('pg').native; // used for linux
 
 var database = "postgres://tihxgzxemzbafr:hiCzGMi1vENgac3Cmd-UyZDeZ-@ec2-54-235-208-3.compute-1.amazonaws.com:5432/defa0fcjs2b02k?ssl=true";
 var client = new pg.Client(database);
@@ -44,11 +44,14 @@ router.post('/', function(req,res){
         req.body.description+"','" +
         req.body.category+"','" +
         req.body.price+"','";
-    input += "{";
-    for (i in req.body.image){
-        input+= "\""+req.body.image[i];
-        if (i != req.body.image.length-1) input+= "\",";
-        else input+= "\"}','";
+    if (req.body.image.length == 0) input += "{}','";
+    else {
+        input += "{";
+        for (i in req.body.image) {
+            input += "\"" + req.body.image[i];
+            if (i != req.body.image.length - 1) input += "\",";
+            else input += "\"}','";
+        }
     }
     input += req.body.stock+"','" +
         "SmithBob','" +

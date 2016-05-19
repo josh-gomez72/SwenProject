@@ -1,5 +1,160 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
+<head>
+ <title>The Market</title>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+ <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+ <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
+ <!-- <script type="text/javascript" src="../routes/jQuery.js"></script> -->
+</head>
+
+<body>
+    <h1>The Market</h1>
+    <p>New Zealand’s Online Community Farmer's Market</p>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid"> <!-- top nav section -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">The Market</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/browse">Browse</a></li>
+                <li><a href="/sell">Sell</a></li>
+                <li><a href="/cart">Basket</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            </ul>
+        </div> <!-- Close container fluid div-->
+        <div class="container-fluid search-nav"> <!-- botton nav line -->
+           <form action = "/search" class="form-horizontal" role="search" id="search-form">
+                <div class="form-group">
+                    <div class = "col-md-4">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control" name="section_id">
+                            <option value="all">All Catagories</option>
+                            <option value="bakery">Bakery</option>
+                            <option value="dairy-eggs">Dairy and Eggs</option>
+                            <option value="fruit">Fruit</option>
+                            <option value="vegeables">Vegetables</option>
+                            <option value="other-catagory">Other</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control" name="category_id">
+                            <option value="all">All Locations</option>
+                            <option value="auckland">Auckland</option>
+                            <option value="christchurch">Christchurch</option>
+                            <option value="dunedin">Dunedin</option>
+                            <option value="hamilton">Hamilton</option>
+                            <option value="napier-hastings">Napier-Hastings</option>
+                            <option value="nelson">Nelson</option>
+                            <option value="palmerston-north">Palmerston North</option>
+                            <option value="tauranga">Tauranga</option>
+                            <option value="wellington">Wellington</option>
+                            <option value="other-location">Other</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </nav>
+<div class="container">
+    <h2><%=title%></h2>
+    <div>
+        <div class="col-md-2">
+              <h3> <a href="browse/Bakery">Bakery</a></h3>
+              <ul>
+                <li> <a href="/browse/Bread">Bread</a></li>
+                <li> <a href="browse/Biscuits">Biscuits</a></li>
+                <li> <a href="browse/Cakes">Cakes</a></li>
+                <li> <a href="browse/Pastries">Pastries</a></li>
+                <li> <a href="browse/Wraps">Wraps</a></li>
+                <li class="other"> <a href="browse/Other-Bakery">Other</a></li>
+            </ul>
+        </div>
+        <div class="col-md-2">
+              <h3> <a href="browse/Dairy-and-Eggs">Dairy and Eggs</a></h3>
+              <ul>
+                <li> <a href="browse/Milk">Butter</a></li>
+                <li> <a href="browse/Cheese">Cheese</a></li>
+                <li> <a href="browse/Eggs">Eggs</a></li>
+                <li> <a href="browse/Milk">Milk</a></li>
+                <li> <a href="browse/Yogurt">Yogurt</a></li>
+                <li> <a href="browse/Dairy-Alternatives">Dairy Alternatives</a></li>
+                <li class="other"> <a href="browse/Other-Dairy">Other</a></li>
+            </ul>
+        </div>
+        <div class="col-md-2">
+              <h3> <a href="browse/Fruit">Fruit</a></h3>
+              <ul>
+                <li> <a href="browse/Apples-and-Pears">Apples and Pears</a></li>
+                <li> <a href="browse/Berries">Berries</a></li>
+                <li> <a href="browse/Citrus">Citrus</a></li>
+                <li> <a href="browse/Stone-Fruit">Stone Fruit</a></li>
+                <li> <a href="browse/Tropical-Fruit">Tropical Fruit</a></li>
+                <li> <a href="browse/Oganic-Fruit">Organic Fruit</a></li>
+                <li class="other"> <a href="browse/Other-Fruit">Other</a></li>
+            </ul>
+        </div>
+        <div class="col-md-2">
+            <h3> 
+                <a href="browse/Vegetables" class="browse">Vegetables</a>
+            </h3>
+            <ul>
+                <li> <a href="browse/Beans-and-Peas">Beans and Peas</a></li>
+                <li> <a href="browse/Chillies-and-Peppers">Chillies and Peppers</a></li>
+                <li> <a href="browse/Cucumber-and-Zucchini">Cucumber and Zucchini</a></li>
+                <li> <a href="browse/Herbs">Herbs</a></li>
+                <li> <a href="browse/Leafy-Vegetables">Leafy Vegetables</a></li>
+                <li> <a href="browse/Pumpkin-and-Squash">Pumpkin and Squash</a></li>
+                <li> <a href="browse/Root-Vegetables">Root Vegetables</a></li>
+                <li> <a href="browse/Tomatoes">Tomatoes</a></li>
+                <li> <a href="browse/Organic-Vegetables">Organic Vegetables</a></li>
+                <li class="other"> <a href="browse/Other-Vegetables">Other</a></li>
+            </ul>
+        </div>
+        <div class="col-md-2">
+              <h3> <a href="browse/Other">Other</a></h3>
+              <ul>
+                <li> <a href="browse/Antipasto">Antipasto</a></li>
+                <li> <a href="browse/Drinks">Drinks</a></li>
+                <li> <a href="browse/Condiments">Condiments</a></li>
+                <li> <a href="browse/Oils-and-Vinegers">Oils and Vinegars</a></li>
+                <li> <a href="browse/Sauces">Sauces</a></li>
+                <li> <a href="browse/Spreads">Spreads</a></li>
+                <li> <a href="browse/Sweets-and-Snacks">Sweets and Snacks</a></li>
+                <li class="other"> <a href="browse/Other">Other</a></li>
+            </ul>
+        </div>
+        <div class="col-md-2">
+              <h3> <a href="browse-location/All-Locations">Browse by Location</a></h3>
+              <ul>
+                <li> <a href="browse-location/Auckland">Auckland</a></li>
+                <li> <a href="browse-location/Christchurch">Christchurch</a></li>
+                <li> <a href="browse-location/Dunedin">Dunedin</a></li>
+                <li> <a href="browse-location/Hamilton">Hamilton</a></li>
+                <li> <a href="browse-location/Napier-Hastings">Napier-Hastings</a></li>
+                <li> <a href="browse-location/Nelson">Nelson</a></li>
+                <li> <a href="browse-location/Palmerston-North">Palmerston North</a></li>
+                <li> <a href="browse-location/Tauranga">Tauranga</a></li>
+                <li> <a href="browse-location/Wellington"> Wellington</a></li>
+                <li class="other"> <a href="browse-location/Other-Location">Other</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+=======
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/public/stylesheets/style.css' />
@@ -9,3 +164,4 @@
     <p>Welcome to <%= title %></p>
   </body>
 </html>
+>>>>>>> origin/master

@@ -3,6 +3,17 @@ var router = express.Router();
 //var pg = require('pg').native; //used for lab machines
 var pg = require('pg'); //used for windows
 
+<<<<<<< HEAD
+//var database = "postgres://gomezjosh:password@depot:5432/SwenGroup9";
+var database = "postgres://tihxgzxemzbafr:hiCzGMi1vENgac3Cmd-UyZDeZ-@ec2-54-235-208-3.compute-1.amazonaws.com:5432/defa0fcjs2b02k?ssl=true";
+var client = new pg.Client(database);
+client.connect();
+
+router.get('/', function(req, res, next) {
+	res.redirect('/browse');
+});
+
+=======
 // var database = "postgres://gomezjosh:password@depot:5432/SwenGroup9";
  var database = "postgres://tihxgzxemzbafr:hiCzGMi1vENgac3Cmd-UyZDeZ-@ec2-54-235-208-3.compute-1.amazonaws.com:5432/defa0fcjs2b02k?ssl=true";
  var client = new pg.Client(database);
@@ -133,6 +144,7 @@ router.get('/purchaseTEST', function(req, res, next) {
 });
 /** End of testing pages */
 
+>>>>>>> origin/master
  pg.connect(database, function(err, client, done){
  	if(err){
  		console.error('Could not connect to the database');
@@ -152,6 +164,21 @@ router.get('/purchaseTEST', function(req, res, next) {
  	});
  });
 
+<<<<<<< HEAD
+router.get('/browse', function(req, res, next) {
+  res.render('browse', {title: 'Browse', resultPlace: {}});
+});
+
+router.get('/browse/:catagory', function(req, res, next) {
+	var header = 'Browse in ' + req.params.catagory;
+	res.render('browse', {title: 'Browse'});
+});
+
+router.get('/browse-location/:location', function(req, res, next) {
+	var header = 'Browse in ' + req.params.location;
+	res.render('browse', {title: 'Browse'});
+});;
+=======
 router.get('/register', function(req, res, next){
 	res.render('register', {title: 'Register User'});
 });
@@ -209,5 +236,6 @@ router.get('/register/confirmation', function(req, res, next){
 	console.log(query.text);
 	res.render('regconfirm', {title: 'Confirmation!'});
 });
+>>>>>>> origin/master
 
 module.exports = router;

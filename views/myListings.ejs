@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Listings</title>
+    <script src="/javascripts/jquery-1.12.1.min.js"> </script>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <script src="/stylesheets/bootstrap/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="">ROMAPLZ</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+            <li><a href="/sell"><span class="glyphicon glyphicon-usd"></span> Sell</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/wishlist"><span class="glyphicon glyphicon-star-empty"></span> My Wishlist </a></li>
+            <li><a href="/myListings"><span class="glyphicon glyphicon-tag"></span> My Listings </a></li>
+            <li><a href="/cart"><span class="glyphicon glyphicon-shopping-cart"></span> View Cart </a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        </ul>
+        <div class="pull-right">
+            <form class="col-sm-5 col-md-5 navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="well">
+        <h1><strong> My Listings </strong></h1>
+
+        <div id="itemList"></div>
+    </div>
+</div>
+</body>
+<script>
+
+    var currentListingsJSON = [];
+
+    var currentListings = "";
+
+    getListings();
+
+    function getListings(){
+        var out = {user:"SmithBob"};
+        $.ajax({
+            url: "/myListings/getListings",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(out),
+            success: function (response) {
+                response = JSON.parse(response);
+                currentListingsJSON = response;
+                drawListings();
+            }
+        });
+    }
+
+    function makeListingItem(item, index){
+        var itemString = JSON.stringify(item);
+        currentListings += '<div class="well row"><div class="col-xs-3">' +
+                '<a href="/buy?id='+item.itemid+'">'+
+                '<img src="'+item.image[0]+'" class="thumbnail img-responsive"></a>'+
+                '</div><div class="col-xs-9"><div class="row"><div class="col-xs-9">'+
+                '<h2><a href="/buy?id='+item.itemid+'">'+item.name+'</a></h2></div>'+
+                '<div class="col-xs-3 text-right">' +
+                '<button type="button" onclick="removeListing('+index+')" class="btn btn-warning"><span class="glyphicon glyphicon-remove"></span> Remove</button>' +
+                '</div></div><div class="col-xs-3">'+
+                '<h3>Price: <small>'+item.price+'</small></h3>'+
+                '</div><div class="col-xs-3">'+
+                '<h3>Quantity: <small>'+item.stock+'</small></h3>'+
+                '</div>' +
+                '<div class="col-xs-6 text-right">' +
+                '<button type="button" onclick="editListing('+index+')" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span> Edit</button>' +
+                '</div></div></div>';
+    }
+
+    function editListing(index){
+        window.location.href = "/myListings/edit?id="+currentListingsJSON[index].itemid;
+    }
+    function removeListing(index){
+        console.log("removing " + index);
+        var out = currentListingsJSON[index];
+        $.ajax({
+            url: "/myListings/remove",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(out),
+            success: function(response){
+                currentListingsJSON.splice(index,1);
+                response = JSON.parse(response);
+                alert(response.message);
+                drawListings();
+            }
+        });
+    }
+
+    function drawListings(){
+        currentListings = "";
+        for (i in currentListingsJSON){
+            makeListingItem(currentListingsJSON[i], i);
+        }
+        $("#itemList").html(currentListings);
+    }
+
+</script>
+
+</html>

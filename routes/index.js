@@ -4,16 +4,9 @@ var router = express.Router();
 var pg = require('pg'); //used for windows
 
 // var database = "postgres://gomezjosh:password@depot:5432/SwenGroup9";
- var database = "postgres://tihxgzxemzbafr:hiCzGMi1vENgac3Cmd-UyZDeZ-@ec2-54-235-208-3.compute-1.amazonaws.com:5432/defa0fcjs2b02k?ssl=true";
+ var database = "postgres://tihxgzxemzbafr:hiCzGMi1vENgac3Cmd-UyZDeZ-@ec2-54-235-208-3.compute-1.amazonaws.com:5432/defa0fcjs2b02k";
  var client = new pg.Client(database);
  client.connect();
- 
- /** Testing variables */
- var loggedUser = null;
- var cart = [];		// {id, item, quantity}
- var cartCost = 0;	// use item price
- var resultsPerPage = 10;
- /** Testing variables end */
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -171,9 +164,9 @@ router.get('/login/confirmation', function (req, res, next){
 	console.log(req.query)
 	var username = req.query.username;
 	var password = req.query.password;
-
-	client.query("")
-
+	
+	client.query("")	
+	
 });
 
 router.get('/browse/category', function(req, res, next){
@@ -186,7 +179,7 @@ router.get('/browse/category', function(req, res, next){
 			console.log(result.rows)
 			res.render('browseCategory', {title: 'List of items', resultPlace: result.rows});
 			}
-	}
+	}		
 	);
 });
 

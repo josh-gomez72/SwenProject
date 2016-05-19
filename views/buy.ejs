@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title id="tabName"></title>
+    <script src="/javascripts/jquery-1.12.1.min.js"> </script>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <script src="/stylesheets/bootstrap/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="">ROMAPLZ</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+            <li><a href="/sell"><span class="glyphicon glyphicon-usd"></span> Sell</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/wishlist"><span class="glyphicon glyphicon-star-empty"></span> My Wishlist </a></li>
+            <li><a href="/myListings"><span class="glyphicon glyphicon-tag"></span> My Listings </a></li>
+            <li><a href="/cart"><span class="glyphicon glyphicon-shopping-cart"></span> View Cart </a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        </ul>
+        <div class="pull-right">
+            <form class="col-sm-5 col-md-5 navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <h2 id = "title"></h2>
+
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <!-- Left and right controls -->
+        <ol id="carouselIndicators" class="carousel-indicators"> </ol>
+
+        <!-- Wrapper for slides -->
+
+        <div id = "carouselInner" class="carousel-inner" role="listbox"></div>
+
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+    <div class="well">
+
+        <div class="form-inline text-center">
+            <div class="form-group">
+                <label for="quantity">Quantity:</label>
+                <input type="number" value="1" min="1" class="form-control text-center" id="quantity">
+            </div>
+
+            <button id="cart" type="button" onclick="addToCart()" class="btn btn-warning">Add to Cart <span class="glyphicon glyphicon-shopping-cart"></span></button>
+            <button type="button" onclick="addToWishList()" class="btn btn-warning">Add to Wishlist <span class="glyphicon glyphicon-star-empty"></span></button>
+        </div>
+        <div id="success" class="text-center alert alert-success" style="display:none"></div>
+        <div id="error" class="text-center alert alert-danger" style="display:none"></div>
+
+        <div class="text-left">
+            <h3 id="desc">Item Description: </h3>
+
+            <div class="table-responsive">
+                <table id="minorInfo" class="table"></table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var listing;
+    getItem();
+    function getItem(){
+        $.ajax({
+            url: "/buy/item",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({itemID:getParameterByName("id")}),
+            success: function(response){
+                console.log("RES: " + response);
+                response = JSON.parse(response);
+                displayItem(response);
+            }
+        });
+    }
+
+    function displayItem(item){
+        listing = item;
+        $("#tabName").text(listing.name);
+        $("#quantity").attr("max", item.stock);
+        $("#title").html(item.name+' <small>'+item.price+' each</small>');
+        $("#desc").html("Item Description: <small>"+item.description+"</small><br><br>");
+
+        var tableData = '<tr><th>In Stock: </th><td>' + item.stock + '</td><tr>';
+        tableData += '<tr><th>Category: </th><td>' + item.category + '</td><tr>';
+        tableData += '<tr><th>Parent Category: </th><td>' + item.parent_category + '</td><tr>';
+        tableData += '<tr><th>Seller: </th><td>' + item.seller + '</td><tr>';
+
+        $("#minorInfo").html(tableData);
+
+        var indicators = "";
+        var inner = "";
+        for (i in item.image){
+            if (i == 0){
+                indicators+= '<li data-target="#myCarousel" data-slide-to="'+i+'" class="active"></li>';
+                inner+= '<div class="item active">';
+            }
+            else {
+                indicators+= '<li data-target="#myCarousel" data-slide-to="'+i+'"></li>';
+                inner+= '<div class="item">';
+            }
+
+            inner+= '<div class="slider-size">' +
+                    '<img src="'+item.image[i]+'" style="height: 100%;"/> ' +
+                    '</div> ' +
+                    '</div>';
+        }
+        $("#carouselIndicators").html(indicators);
+        $("#carouselInner").html(inner);
+
+        if (item.stock < 1){
+            $("#cart").addClass("disabled");
+            $("#error").html("<strong>Notice: </strong> Item currently out of stock!");
+            $("#error").show();
+        }else {
+            $("#cart").removeClass("disabled");
+        }
+    }
+
+    function addToWishList(){
+        console.log("adding " + listing.itemid);
+        var out = {itemID:listing.itemid};
+        $.ajax({
+            url: "/wishlist/add",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(out),
+            success: function(response){
+                response = JSON.parse(response);
+                handleResponse(response)
+            }
+        });
+    }
+
+    function addToCart(){
+        if ($("#cart").hasClass("disabled")) return;
+        if ($("#quantity").val() < 1) {
+            $("#quantity").val(1);
+            $("#error").html("<strong>Error: </strong> quantity cannot be less than one");
+            $("#error").show(500).delay(2000).hide(500);
+            return;
+        }
+        if ($("#quantity").val() > listing.stock) {
+            $("#quantity").val(listing.stock);
+            $("#error").html("<strong>Error: </strong> quantity cannot be greater than amount in stock");
+            $("#error").show(500).delay(2000).hide(500);
+            return;
+        }
+
+        $("#cart").addClass("disabled");
+
+        var out = listing;
+        out.stock -= $("#quantity").val();
+        $.ajax({
+            url: "/buy/addToCart",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(out),
+            success: function(response){
+                response = JSON.parse(response);
+                $("#quantity").val(1);
+                handleResponse(response);
+                getItem();
+            },
+            error: function(){
+                getItem();
+            }
+        });
+    }
+
+    function handleResponse(res){
+        if (res.success) {
+            $("#success").html(res.message);
+            $("#success").show(500).delay(2000).hide(500);
+        }
+        else {
+            $("#error").html(res.message);
+            $("#error").show(500).delay(2000).hide(500);
+        }
+    }
+
+    function getParameterByName(name) {
+        var url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+        if (!results) return '';
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+</script>
+</html>

@@ -1,3 +1,87 @@
+<<<<<<< HEAD
+body{
+    padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #F3F4EC;
+}
+
+a {
+  color: #00B7FF;
+}
+
+h1{
+    padding-left: 50px;
+	font: 5em "Lucida Grande", Helvetica, Arial, sans-serif;
+    margin: 0;
+    color: #A37B45;
+}
+
+p{
+    padding-left: 100px;
+    color: #424242;
+    font-weight: bold;
+}
+
+h2{
+    color: #86942A;
+    font-weight: bold;
+}
+
+/* navbar */
+.navbar-default {
+    background-color: #507642;
+}
+/* title */
+.navbar-default .navbar-brand {
+    color: #F3F4EC;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+    color: #86942A;
+}
+/* link */
+.navbar-default .navbar-nav > li > a {
+    color: #F3F4EC;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: #86942A;
+}
+.navbar-default .navbar-nav > .active > a, 
+.navbar-default .navbar-nav > .active > a:hover, 
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #424242;
+    background-color: #86942A;
+}
+.navbar-default .navbar-nav > .open > a, 
+.navbar-default .navbar-nav > .open > a:hover, 
+.navbar-default .navbar-nav > .open > a:focus {
+    color: #555;
+    background-color: #D5D5D5;
+}
+
+h3 a{
+    color: black;
+}
+
+ul {
+    list-style-type: none;
+    display: inline;
+}
+ul a{
+    color: black;
+}
+
+.float-left{
+    display: inline-block;
+    float: left;
+}
+
+.float-right{
+    display: inline-block;
+    clear: right;
+}
+=======
 div.tab{
 	background-color:#FFFFFF;
 	padding: 1% 1% 1% 1%;
@@ -83,3 +167,4 @@ div.slider-size{
 		width: 60%;
 	}
 }
+>>>>>>> origin/master

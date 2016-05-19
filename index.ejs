@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The Market</title>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+ <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+ <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
+ <!-- <script type="text/javascript" src="../routes/jQuery.js"></script> -->
+</head>
+
+<body>
+    <h1>The Market</h1>
+    <p>New Zealand’s Online Community Farmer's Market</p>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid"> <!-- top nav section -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">The Market</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Browse</a></li>
+                <li><a href="#">Sell</a></li>
+                <li><a href="#">Basket</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            </ul>
+        </div> <!-- Close container fluid div-->
+        <div class="container-fluid search-nav"> <!-- botton nav line -->
+           <form class="form-horizontal" role="search" id="search-form">
+                <div class="form-group">
+                    <div class = "col-md-4">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control" name="section_id">
+                            <option value="all">All Catagories</option>
+                            <option value="bakery">Bakery</option>
+                            <option value="dairy-eggs">Dairy and Eggs</option>
+                            <option value="fruit">Fruit</option>
+                            <option value="vegeables">Vegetables</option>
+                            <option value="other-catagory">Other</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control" name="category_id">
+                            <option value="all">All Locations</option>
+                            <option value="auckland">Auckland</option>
+                            <option value="christchurch">Christchurch</option>
+                            <option value="dunedin">Dunedin</option>
+                            <option value="hamilton">Hamilton</option>
+                            <option value="napier-hastings">Napier-Hastings</option>
+                            <option value="nelson">Nelson</option>
+                            <option value="palmerston-north">Palmerston North</option>
+                            <option value="tauranga">Tauranga</option>
+                            <option value="wellington">Wellington</option>
+                            <option value="other-location">Other</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </nav>
+<div class="container">
+    <h2>Browse</h2>
+    <div>
+        <div class="col-md-2">
+              <h3> <a href="browse/bakery">Bakery</a></h3>
+              <ul>
+                <li> <a href="browse/bread">Bread</a></li>
+                <li> <a href="browse/biscuits">Biscuits</a></li>
+                <li> <a href="browse/cakes">Cakes</a></li>
+                <li> <a href="browse/pastries">Pastries</a></li>
+                <li> <a href="browse/wraps">Wraps</a></li>
+                <li class="other"> <a href="browse/otherBakery">Other</a></li>
+            </ul>
+        </div>
+        <div class="col-md-2">
+              <h3> <a href="browse/dairyAndEggs">Dairy and Eggs</a></h3>
+              <ul>
+                <li> <a href="browse/cheese">Cheese</a></li>
+                <li> <a href="browse/eggs">Eggs</a></li>
+                <li> <a href="browse/milkAndButter">Milk and Butter</a></li>
+                <li> <a href="browse/yogurt">Yogurt</a></li>
+                <li> <a href="browse/dairyAlternatives">Dairy Alternatives</a></li>
+                <li class="other"> <a href="browse/otherDairy">Other</a></li>
+            </ul>s
+        </div>
+        <div class="col-md-2">
+              <h3> <a href="browse/fruit">Fruit</a></h3>
+              <ul>
+                <li> <a href="browse/applesAndPears">Apples and Pears</a></li>
+                <li> <a href="browse/bananas">Bananas</a></li>
+                <li> <a href="browse/berries">Berries</a></li>
+                <li> <a href="browse/citrus">Citrus</a></li>
+                <li> <a href="browse/melons">Melons</a></li>
+                <li> <a href="browse/stoneFruit">Stone Fruit</a></li>
+                <li> <a href="browse/organicFruit">Organic Fruit</a></li>
+                <li class="other"> <a href="browse/otherFruit">Other</a></li>
+            </ul>
+        </div>
+        <div class="col-md-2">
+            <h3> 
+                <a href="browse/vegetables" class="brows">Vegetables</a>
+            </h3>
+            <ul>
+                <li> <a href="browse/beansAndPeas">Beans and Peas</a></li>
+                <li> <a href="browse/chilliesAndPeppers">Chillies and Peppers</a></li>
+                <li> <a href="browse/cucumberAndZucchini">Cucumber and Zucchini</a></li>
+                <li> <a href="browse/herbs">Herbs</a></li>
+                <li> <a href="browse/leafyVegetables">Leafy Vegetables</a></li>
+                <li> <a href="browse/pumpkinAndSquash">Pumpkin and Squash</a></li>
+                <li> <a href="browse/rootVegetables">Root Vegetables</a></li>
+                <li> <a href="browse/tomatoes">Tomatoes</a></li>
+                <li> <a href="browse/organicVegetables">Organic Vegetables</a></li>
+                <li class="other"> <a href="browse/otherVegetables">Other</a></li>
+            </ul>
+        </div>
+        <div class="col-md-2">
+              <h3> <a href="browse/other">Other</a></h3>
+              <ul>
+                <li> <a href="browse/antipasto">Antipasto</a></li>
+                <li> <a href="browse/drinks">Drinks</a></li>
+                <li> <a href="browse/condiments">Condiments</a></li>
+                <li> <a href="browse/oilsAndVinegers">Oils and Vinegars</a></li>
+                <li> <a href="browse/sauces">Sauces</a></li>
+                <li> <a href="browse/spreads">Spreads</a></li>
+                <li> <a href="browse/sweetsAndSnacks">Sweets and Snacks</a></li>
+                <li class="other"> <a href="browse/other">Other</a></li>
+            </ul>
+        </div>
+        <div class="col-md-2">
+              <h3> <a href="browse/location">Browse by Location</a></h3>
+              <ul>
+                <li> <a href="browse/auckland">Auckland</a></li>
+                <li> <a href="browse/christchurch">Christchurch</a></li>
+                <li> <a href="browse/dunedin">Dunedin</a></li>
+                <li> <a href="browse/hamilton">Hamilton</a></li>
+                <li> <a href="browse/napierHastings">Napier-Hastings</a></li>
+                <li> <a href="browse/nelson">Nelson</a></li>
+                <li> <a href="browse/palmerstonNorth">Palmerston North</a></li>
+                <li> <a href="browse/tauranga">Tauranga</a></li>
+                <li> <a href="browse/wellington"> Wellington</a></li>
+                <li class="other"> <a href="browse/otherLocation">Other</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+ <script type="text/javascript" >
+     $('#search-form').submit(function(event){
+        event.preventDefault();
+        console.log("searched");
+});
+ </script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var client = require('../lib/db.js');
-
+var email = require('../lib/email.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -57,6 +57,7 @@ router.post('/remove', function(req, res, next) {
       return;
     }
     console.log("REMOVED ITEMID: " + req.body.itemid);
+    email.sendMailForRemoving(req.body);
     res.write(JSON.stringify({success:true,message:"<strong>Success!</strong> "+req.body.name+" removed!"}));
     res.end();
   });

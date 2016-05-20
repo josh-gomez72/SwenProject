@@ -15,7 +15,6 @@ var wishList = require('./routes/wishList');
 var categories = require('./routes/categories');
 var search = require('./routes/search');
 
-
 var app = express();
 
 // view engine setup

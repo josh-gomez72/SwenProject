@@ -69,8 +69,27 @@
 
 <div class="container">
     <div class="well">
-        <h1><strong> Search Items </strong></h1>
+        <h1> Search Items </h1>
+        <div class="text-center">
+            <h3 id="results"></h3>
+        </div>
         <br><br>
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th> Parent Category </th>
+                    <td id="parent"></td>
+                </tr>
+                <tr>
+                    <th> Category </th>
+                    <td id="category"></td>
+                </tr>
+                <tr>
+                    <th> Search Text </th>
+                    <td id="text"></td>
+                </tr>
+            </table>
+        </div>
         <div id="itemList"></div>
     </div>
 </div>
@@ -85,7 +104,12 @@
     function getListings(){
         var out = {category:getParameterByName("c"),parentCategory:getParameterByName("p"),searchString:getParameterByName("s")};
         $("#searchText").val(out.searchString);
-        if (out.parentCategory != '')$("#categories").val(out.parentCategory);
+
+        $("#parent").text(out.parentCategory);
+        $("#category").text(out.category);
+        $("#text").text(out.searchString);
+        $("#categories").val(out.parentCategory);
+        if (out.parentCategory == '')$("#categories").val("All Categories");
         $.ajax({
             url: "/search",
             type: "POST",
@@ -119,6 +143,7 @@
     }
 
     function drawListings(){
+        $("#results").html("<strong>Found:</strong> " + currentListingsJSON.length + " results");
         currentListings = "";
         for (i in currentListingsJSON){
             makeListingItem(currentListingsJSON[i], i);
@@ -127,7 +152,7 @@
     }
 
     function runSearch(){
-        if ($("#categories").val() != '')$("#categories").val("All Categories");
+        if ($("#categories").val() == '')$("#categories").val("All Categories");
         console.log("Text: " + $("#searchText").val());
         console.log("Category: " + $("#categories").val());
         var out = "?";

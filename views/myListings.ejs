@@ -18,7 +18,7 @@
             <a class="navbar-brand" href="/browse">The Market</a>
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="/browse">Browse</a></li>
+            <li><a href="/browse">Browse</a></li>
             <li><a href="/sell">Sell</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
@@ -70,7 +70,7 @@
 
 <div class="container">
     <div class="well">
-        <h1><strong> My Listings </strong></h1>
+        <h1> My Listings </h1>
         <br><br>
         <div id="itemList"></div>
     </div>
@@ -150,7 +150,7 @@
         });
     }
     function runSearch(){
-        if ($("#categories").val() != '')$("#categories").val("All Categories");
+        if ($("#categories").val() == '')$("#categories").val("All Categories");
         console.log("Text: " + $("#searchText").val());
         console.log("Category: " + $("#categories").val());
         var out = "?";

@@ -3,6 +3,7 @@
 }
 .deep{
 	background-color: #efff86;
+	border-radius: 20px;
 }
 
 .imageUpload {
@@ -110,6 +111,15 @@ span.docCount{
 div.slider-size{
 	text-align:center;
 }
+
+/*.carousel img {*/
+	/*position: absolute;*/
+	/*top: 0;*/
+	/*left: 0;*/
+	/*min-width: 100%;*/
+	/*height: 500px;*/
+	/*max-width: none;*/
+/*}*/
 
 /* Mobile */
 @media (max-width: 767px) {

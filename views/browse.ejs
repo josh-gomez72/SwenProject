@@ -78,7 +78,7 @@
                 <li> <a href="/search?c=Cakes">Cakes</a></li>
                 <li> <a href="/search?c=Pastries">Pastries</a></li>
                 <li> <a href="/search?c=Wraps">Wraps</a></li>
-                <li class="other"> <a href="/search/?p=Bakery&c='Other'">Other</a></li>
+                <li class="other"> <a href="/search/?p=Bakery&c=Other">Other</a></li>
             </ul>
         </div>
         <div class="col-md-2">
@@ -156,7 +156,7 @@
 
 <script>
     function runSearch(){
-        if ($("#categories").val() != '')$("#categories").val("All Categories");
+        if ($("#categories").val() == '')$("#categories").val("All Categories");
         console.log("Text: " + $("#searchText").val());
         console.log("Category: " + $("#categories").val());
         var out = "?";

@@ -177,10 +177,11 @@
             }
 
             inner+= '<div class="slider-size">' +
-                    '<img src="'+item.image[i]+'" style="height: 100%;"/> ' +
+                    '<img src="'+item.image[i]+'" style="height:100%;"/> ' +
                     '</div> ' +
                     '</div>';
         }
+        inner += '</div>';
         $("#carouselIndicators").html(indicators);
         $("#carouselInner").html(inner);
 
@@ -262,6 +263,7 @@
     }
 
     function runSearch(){
+        if ($("#categories").val() == '')$("#categories").val("All Categories");
         console.log("Text: " + $("#searchText").val());
         console.log("Category: " + $("#categories").val());
         var out = "?";

@@ -240,7 +240,7 @@
     }
 
     function runSearch(){
-        if ($("#categories").val() != '')$("#categories").val("All Categories");
+        if ($("#categories").val() == '')$("#categories").val("All Categories");
         console.log("Text: " + $("#searchText").val());
         console.log("Category: " + $("#categories").val());
         var out = "?";

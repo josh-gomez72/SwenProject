@@ -77,15 +77,15 @@
         <div class="table-responsive">
             <table class="table">
                 <tr>
-                    <th> Parent Category </th>
+                    <th> Parent Category: </th>
                     <td id="parent"></td>
                 </tr>
                 <tr>
-                    <th> Category </th>
+                    <th> Category: </th>
                     <td id="category"></td>
                 </tr>
                 <tr>
-                    <th> Search Text </th>
+                    <th> Search Text: </th>
                     <td id="text"></td>
                 </tr>
             </table>
@@ -105,9 +105,9 @@
         var out = {category:getParameterByName("c"),parentCategory:getParameterByName("p"),searchString:getParameterByName("s")};
         $("#searchText").val(out.searchString);
 
-        $("#parent").text(out.parentCategory);
-        $("#category").text(out.category);
-        $("#text").text(out.searchString);
+        $("#parent").html('<a href="/search?p='+out.parentCategory+'">'+out.parentCategory+'</a>');
+        $("#category").html('<a href="/search?c='+out.category+'">'+out.category+'</a>');
+        $("#text").html('<a href="/search?s='+out.searchString+'">'+out.searchString+'</a>');
         $("#categories").val(out.parentCategory);
         if (out.parentCategory == '')$("#categories").val("All Categories");
         $.ajax({

@@ -25,7 +25,6 @@ router.post('/item', function(req,res,next){
 
 router.post('/addToCart', function(req, res, next) {
     console.log("RECIEVED: " + JSON.stringify(req.body));
-    // var query = "SELECT * FROM Items WHERE seller='SmithBob';";
     var query = "UPDATE Items SET ";
     query += "stock='"+req.body.stock+"'";
     query += "WHERE itemid='"+req.body.itemid+"';";

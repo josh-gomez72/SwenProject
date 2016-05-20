@@ -72,6 +72,10 @@
     <div class="well">
         <h1> My Listings </h1>
         <br><br>
+        <div class="text-center">
+            <div id="success" class="text-center alert alert-success" style="display:none"></div>
+            <div id="error" class="text-center alert alert-danger" style="display:none"></div>
+        </div>
         <div id="itemList"></div>
     </div>
 </div>
@@ -127,7 +131,27 @@
                 '<h3>Quantity: <small>'+item.stock+'</small></h3>'+
                 '</div>' +
                 '<button type="button" onclick="editListing('+index+')" class="btn btn-success market pull-right"><span class="glyphicon glyphicon-pencil"></span> Edit</button>' +
-                '</div></div>';
+                '</div></div>' +
+                '<div class="text-center">' +
+                '<div id="success'+index+'" class="text-center alert alert-success" style="display:none"></div>' +
+                '<div id="error'+index+'" class="text-center alert alert-danger" style="display:none"></div>' +
+                '</div>';
+
+    }
+
+    function handleResponse(res, index){
+        if (index == -1) index = "";
+        var successID = "#success"+index;
+        var errorID = "#error"+index;
+        console.log("RES: " + JSON.stringify(res)+ " INDEX: " + successID);
+        if (res.success) {
+            $(successID).html(res.message);
+            $(successID).show(500).delay(2000).hide(500);
+        }
+        else {
+            $(errorID).html(res.message);
+            $(errorID).show(500).delay(2000).hide(500);
+        }
     }
 
     function editListing(index){
@@ -144,8 +168,8 @@
             success: function(response){
                 currentListingsJSON.splice(index,1);
                 response = JSON.parse(response);
-                alert(response.message);
                 drawListings();
+                handleResponse(response, index-1);
             }
         });
     }
@@ -161,7 +185,10 @@
         window.location.href = "/search"+out;
     }
     function drawListings(){
-        currentListings = "";
+        currentListings = '<div class="text-center">' +
+                '<div id="success0" class="text-center alert alert-success" style="display:none"></div>' +
+                '<div id="error0" class="text-center alert alert-danger" style="display:none"></div>' +
+                '</div>';
         for (i in currentListingsJSON){
             makeListingItem(currentListingsJSON[i], i);
         }

@@ -19,6 +19,16 @@ router.get('/', function(req, res, next) {
 	res.redirect('/login');
 });
 
+router.get('/logout', function(req, res, next) {
+	loggedUser = null;
+	res.redirect('/login');
+});
+
+router.get('/user', function(req, res, next) {
+    console.log("CURRENT_USER: " + loggedUser);
+    res.end(JSON.stringify({username:loggedUser}));
+});
+
 /** Testing pages */
 router.get('/indexTEST', function(req, res, next) {
 	if (loggedUser == null){	// User's not logged in, redirect to login page

@@ -30,7 +30,6 @@ router.post('/uploadPhoto', upload.single('fileToUpload'), function(req, res) {
             return console.error(err);
         }
         console.log("File deleted successfully!");
-
     });
 });
 
@@ -44,16 +43,19 @@ router.post('/', function(req,res){
         req.body.description+"','" +
         req.body.category+"','" +
         req.body.price+"','";
-    input += "{";
-    for (i in req.body.image){
-        input+= "\""+req.body.image[i];
-        if (i != req.body.image.length-1) input+= "\",";
-        else input+= "\"}','";
+    if (req.body.image.length == 0) input += "{}','";
+    else {
+        input += "{";
+        for (i in req.body.image) {
+            input += "\"" + req.body.image[i];
+            if (i != req.body.image.length - 1) input += "\",";
+            else input += "\"}','";
+        }
     }
-    input += req.body.stock+"','" +
-        "SmithBob','" +
-        req.body.parent_category+"'" +
-        ");";
+    input += req.body.stock+"','";
+    input += req.body.seller+"','";
+    input += req.body.parent_category+"'";
+    input += ");";
     console.log("INPUT: " + input);
     client.query("INSERT INTO Items(name,description,category,price,image,stock,seller,parent_category)" +
         input, function(error, result){

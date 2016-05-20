@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Listings</title>
+    <title>Wishlist</title>
     <script src="/javascripts/jquery-1.12.1.min.js"> </script>
     <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
@@ -18,12 +18,12 @@
             <a class="navbar-brand" href="/browse">The Market</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a href="/browse">Browse</a></li>
+            <li class="active"><a href="/browse">Browse</a></li>
             <li><a href="/sell">Sell</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="/wishlist"><span class="glyphicon glyphicon-star-empty"></span> My Wishlist </a></li>
-            <li class="active"><a href="/myListings"><span class="glyphicon glyphicon-tag"></span> My Listings </a></li>
+            <li><a href="/myListings"><span class="glyphicon glyphicon-tag"></span> My Listings </a></li>
             <li><a href="/cartTest"><span class="glyphicon glyphicon-shopping-cart"></span> View Cart </a></li>
             <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         </ul>
@@ -67,11 +67,29 @@
     </div>
 </nav>
 
-
 <div class="container">
     <div class="well">
-        <h1> My Listings </h1>
+        <h1> Search Items </h1>
+        <div class="text-center">
+            <h3 id="results"></h3>
+        </div>
         <br><br>
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th> Parent Category </th>
+                    <td id="parent"></td>
+                </tr>
+                <tr>
+                    <th> Category </th>
+                    <td id="category"></td>
+                </tr>
+                <tr>
+                    <th> Search Text </th>
+                    <td id="text"></td>
+                </tr>
+            </table>
+        </div>
         <div id="itemList"></div>
     </div>
 </div>
@@ -82,24 +100,18 @@
     var currentListings = "";
     var user = "";
 
-    init();
-    function init() {
-        $.ajax({
-            url: "/user",
-            type: "GET",
-            contentType: "application/json",
-            success: function(response){
-                console.log(response);
-                user = JSON.parse(response).username;
-                getListings();
-            }
-        });
-    }
-
+    getListings();
     function getListings(){
-        var out = {username:user};
+        var out = {category:getParameterByName("c"),parentCategory:getParameterByName("p"),searchString:getParameterByName("s")};
+        $("#searchText").val(out.searchString);
+
+        $("#parent").text(out.parentCategory);
+        $("#category").text(out.category);
+        $("#text").text(out.searchString);
+        $("#categories").val(out.parentCategory);
+        if (out.parentCategory == '')$("#categories").val("All Categories");
         $.ajax({
-            url: "/myListings/getListings",
+            url: "/search",
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(out),
@@ -114,41 +126,31 @@
     function makeListingItem(item, index){
         var imagePath = "";
         if (item.image != null) imagePath = item.image[0];
+
         currentListings += '<div class="well deep row"><div class="col-xs-3">' +
                 '<a href="/buy?id='+item.itemid+'">'+
                 '<img src="'+imagePath+'" class="thumbnail" width="200" height="200"></a>'+
                 '</div><div class="col-xs-9"><div class="row"><div class="col-xs-9">'+
                 '<h2><a href="/buy?id='+item.itemid+'">'+item.name+'</a></h2></div>'+
                 '<div class="col-xs-3 text-right">' +
-                '<button type="button" onclick="removeListing('+index+')" class="btn btn-success market pull-right"><span class="glyphicon glyphicon-remove"></span> Remove</button>' +
+                '<button type="button" onclick="removeListing('+index+')" class="btn btn-success market"><span class="glyphicon glyphicon-remove"></span> Remove</button>' +
                 '</div></div><div class="col-xs-3">'+
                 '<h3>Price: <small>'+item.price+'</small></h3>'+
                 '</div><div class="col-xs-3">'+
                 '<h3>Quantity: <small>'+item.stock+'</small></h3>'+
                 '</div>' +
-                '<button type="button" onclick="editListing('+index+')" class="btn btn-success market pull-right"><span class="glyphicon glyphicon-pencil"></span> Edit</button>' +
                 '</div></div>';
     }
 
-    function editListing(index){
-        window.location.href = "/myListings/edit?id="+currentListingsJSON[index].itemid;
+    function drawListings(){
+        $("#results").html("<strong>Found:</strong> " + currentListingsJSON.length + " results");
+        currentListings = "";
+        for (i in currentListingsJSON){
+            makeListingItem(currentListingsJSON[i], i);
+        }
+        $("#itemList").html(currentListings);
     }
-    function removeListing(index){
-        console.log("removing " + index);
-        var out = currentListingsJSON[index];
-        $.ajax({
-            url: "/myListings/remove",
-            type: "POST",
-            contentType: "application/json",
-            data: JSON.stringify(out),
-            success: function(response){
-                currentListingsJSON.splice(index,1);
-                response = JSON.parse(response);
-                alert(response.message);
-                drawListings();
-            }
-        });
-    }
+
     function runSearch(){
         if ($("#categories").val() == '')$("#categories").val("All Categories");
         console.log("Text: " + $("#searchText").val());
@@ -160,12 +162,15 @@
         out +="s="+ $("#searchText").val();
         window.location.href = "/search"+out;
     }
-    function drawListings(){
-        currentListings = "";
-        for (i in currentListingsJSON){
-            makeListingItem(currentListingsJSON[i], i);
-        }
-        $("#itemList").html(currentListings);
+
+    function getParameterByName(name) {
+        var url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+        if (!results) return '';
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
 
 </script>

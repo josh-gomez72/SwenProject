@@ -249,6 +249,21 @@
                 getItem();
             }
         });
+		$.ajax({
+            url: "/cart/addItem",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({output: out, quantity: $("#quantity").val()}),
+            success: function(response){
+                response = JSON.parse(response);
+                $("#quantity").val(1);
+                handleResponse(response);
+                getItem();
+            },
+            error: function(){
+                getItem();
+            }
+        });
     }
 
     function handleResponse(res){

@@ -11,9 +11,9 @@ router.get('/', function(req, res, next) {
 			console.error(error);
 			return;
 		}
-		console.log(JSON.stringify(result.rows));
+		//console.log(JSON.stringify(result.rows));
 		var cart = result.rows;
-		res.render('cartTEST', {title: 'The Market', cart: cart});
+		res.render('cart', {title: 'The Market', cart: cart});
   });
 });
 
@@ -53,10 +53,9 @@ router.get('/addRandom', function(req, res, next) {
     });
 });
 
-/** Remember to pass in correct id and quantity*/
-router.get('/addItem', function(req, res, next) {
-	var itemid = 43;	// ID of item to add to cart
-	var quantity = 1;	// Quantity to ADD to the cart
+router.post('/addItem', function(req, res, next) {
+	var itemid = req.body.output.itemid;	// ID of item to add to cart
+	var quantity = +req.body.quantity;	// Quantity to ADD to the cart
 	
 	// First, check cart to see if the item already exists.
 	var query = "SELECT * FROM Cart WHERE userid=" + global.userID + " AND itemid=" + itemid +";";
@@ -67,12 +66,11 @@ router.get('/addItem', function(req, res, next) {
 			return;
 		}
 		if (result.rows.length > 0){	// This item exists within the cart.
-			quantity += result.rows[0].quantity;	// Increment existing quantity
+			quantity += +result.rows[0].quantity;	// Increment existing quantity
 			var increment = "UPDATE Cart SET quantity = '" + quantity + "' WHERE itemid = '" + itemid + "' AND userid='" + global.userID + "'";
 			client.query(increment, function(error, result){
 				if (error){ console.error(error); }
 			});
-			res.redirect('/cart');	// Successful, don't continue
 		} else {
 			// The item does not exist. Must ADD it to the table.
 			var insert = "INSERT INTO Cart(userid,itemid,quantity) VALUES ('" + global.userID + "', '" + itemid + "', '" + quantity + "')";
@@ -82,21 +80,18 @@ router.get('/addItem', function(req, res, next) {
 					console.error(error);
 				}
 				console.log("An item has been added to the cart");
-				res.redirect('/cart');
 			});
 		}
 	});
 });
 
-/** Remember to pass in ID of item to be removed */
 router.get('/removeItem', function(req, res, next) {
-	var itemid = 24;
+	var itemid = req.query.itemid;
     var query = "DELETE FROM Cart WHERE itemid = " + itemid + " AND userid = " + global.userID + " ";
     console.log("QUERY: " + query);
     client.query(query, function(error, result){
         if (error){ console.error('Failed to execute query');}
-        console.log("Deleted from cart");
-        res.redirect('/cart');
+		res.redirect('/cart');
     });
 });
 

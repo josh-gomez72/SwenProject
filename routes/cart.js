@@ -13,7 +13,15 @@ router.get('/', function(req, res, next) {
 		}
 		//console.log(JSON.stringify(result.rows));
 		var cart = result.rows;
-		res.render('cart', {title: 'The Market', cart: cart});
+		var cost = +0;
+		/* Calculate price */
+		for (i=0; i < cart.length; i++){
+			console.log(cart[i].price + " .. " + cart[i].quantity);
+			cost += +(cart[i].price).replace(/[^\d.-]/g, '') * +cart[i].quantity;
+		}
+		
+		res.render('cart', {title: 'The Market', cart: cart, cost: cost});
+		
   });
 });
 

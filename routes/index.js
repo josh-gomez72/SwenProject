@@ -4,7 +4,11 @@ var client = require('../lib/db.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	res.redirect('/login');
+	if (global.userID == -1){	// if not logged in
+		res.redirect('/login');
+	} else {
+		res.redirect('/browse');
+	}
 });
 
 router.get('/logout', function(req, res, next) {

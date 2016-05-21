@@ -17,6 +17,10 @@ var search = require('./routes/search');
 
 var app = express();
 
+// Currently logged in user
+userID = -1;
+userName = null;
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

@@ -4,7 +4,18 @@ var client = require('../lib/db.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('cart');
+	console.log("TESTING CART JS FILE: USERID = " + userID);
+	// Need to get the correct userID
+	var query = "SELECT * FROM Cart, Items WHERE Cart.userid=1 AND Items.itemid=Cart.itemid;";
+	client.query(query, function(error, result){
+		if (error){
+			console.error('Failed to execute query');
+			console.error(error);
+			return;
+		}
+		var cart = result.rows;
+		res.render('cartTEST', {title: 'The Market', cart: cart});
+  });
 });
 
 router.get('/buildTable', function(req, res, next) {
@@ -43,6 +54,22 @@ router.get('/addRandom', function(req, res, next) {
     });
 });
 
+router.get('/addItem', function(req, res, next) {
+    var query = "INSERT INTO Cart(userid,itemid,quantity) ";
+    query += "VALUES ('1','24','4')";
+
+    console.log("QUERY: " + query);
+    client.query(query, function(error, result){
+        if (error){
+            console.error('Failed to execute query');
+            console.error(error);
+            return;
+        }
+        console.log("ADDED TO TABLE: Cart");
+        res.redirect('/cart');
+    });
+});
+
 router.post('/items', function(req,res,next){
   var query = "SELECT * FROM Cart, Items WHERE Cart.userid="+req.body.userID+" AND Items.itemid=Cart.itemid;";
   client.query(query, function(error, result){
@@ -51,7 +78,7 @@ router.post('/items', function(req,res,next){
       console.error(error);
       return;
     }
-    console.log("ALL ITEMS IN TABLE Cart: " + JSON.stringify(result.rows));
+    //console.log("ALL ITEMS IN TABLE Cart: " + JSON.stringify(result.rows));
 
     res.write(JSON.stringify(result.rows));
     res.end();

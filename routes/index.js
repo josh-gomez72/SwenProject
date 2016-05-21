@@ -1,10 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var client = require('../lib/db.js');
-var loggedUser = null;
-var cart = [];
-var cartCost = 0;
-
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -12,74 +8,43 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/logout', function(req, res, next) {
-	loggedUser = null;
+	global.userName = null;
+	global.userID = -1;
 	res.redirect('/login');
 });
 
-router.get('/user', function(req, res, next) {
-    console.log("CURRENT_USER: " + loggedUser);
-    res.end(JSON.stringify({username:loggedUser}));
+router.get('/login', function(req, res, next){
+	res.render('login', {title: 'Login'});
 });
 
-/** Testing pages */
-router.get('/indexTEST', function(req, res, next) {
-	if (loggedUser == null){	// User's not logged in, redirect to login page
-	  res.redirect('loginTEST');
-	}
-	else {				// user's already logged in. Show home page.
-	  res.render('indexTEST', {title: 'The Market', user: loggedUser, cart: cart.length});
-	}
-});
-
-router.get('/logout', function(req, res, next) {
-	loggedUser = null;
-	cart = [];
-	cartCost = 0;
-	res.redirect('/login');
-});
-
-router.get('/loginTEST', function(req, res, next) {
-	// Query for existing username
-	if (req.query.username){
+router.post('/login', function (req, res, next){
+	if (req.body.username){
 		// Query database for user. If user exists, allow login.
-		var query = client.query("SELECT  FROM Users WHERE username = '" + req.query.username + "';", function (error, result) {
+		var query = client.query("SELECT * FROM Users WHERE username = '" + req.body.username + "';", function (error, result) {
 			if (error){ console.log(error);}
 			else {
 				if (result.rows.length > 0){	// A user exists with this name, successful login.
-					loggedUser = req.query.username;
-					cartSize = 0;
-					cart = [];
-					res.redirect('indexTEST');
+					global.userName = result.rows[0].username;
+					global.userID = result.rows[0].id;
+					res.redirect('/browse');
 				}
 				else {	// No existing username, fail to log in.
-					res.render('loginTEST', {title: 'The Market', user:loggedUser, cart:cart.length, err: 'Username or password incorrect. Please try again.'});
+					res.render('login', {title: 'The Market', user:global.userName, err: 'Username or password incorrect. Please try again.'});
 				}
 			}
 		});
 	} else {		// no username was passed in.
-		res.render('loginTEST', {title: 'The Market', user:loggedUser, cart:cart.length, err: ''});
+		res.render('login', {title: 'The Market'});
 	}
 	
 });
 
-router.get('/cartTEST', function(req, res, next) {
-	// Updated so all info remains in the cart, don't need to pull from db
-	res.render('cartTEST', {title: 'The Market', user:loggedUser, cart:cart.length, list:cart, cost: cartCost});
+router.get('/user', function(req, res, next) {
+    console.log("CURRENT_USER: " + global.userName);
+    res.end(JSON.stringify({username:global.userName}));
 });
 
-router.get('/searchTEST', function(req, res, next) {
-	//console.log("Search Test");
-	// limit 10 offset 20			10 results from row 20
-	var queryStr = "SELECT * FROM items WHERE name = '" + req.query.search + "';"
-	var query = client.query(queryStr, function (error, result) {
-		if (error){ console.log(error);}
-		else {
-			res.render('searchTEST', {title: 'The Market', user:loggedUser, cart:cart.length, list:result.rows, cost: cartCost});
-		}
-	});
-	//res.redirect('indexTEST');
-});
-
+/** Testing pages */
 /* Requires item:itemid. Optional quantity:digit. 
 	Adds an object to the cart by itemID, or increments quantity if already in cart.*/
 router.get('/addToCartTEST', function(req, res, next) {
@@ -129,16 +94,6 @@ router.get('/removeFromCartTEST', function(req, res, next) {
 	}
 	res.redirect('cartTEST');
 });
-
-router.get('/paymentTEST', function(req, res, next) {
-	// ... show page requesting payment information (credit card & address)
-	res.redirect('indexTEST');
-});
-
-router.get('/purchaseTEST', function(req, res, next) {
-	// ... Remove purchased items from database
-	res.redirect('indexTEST');
-});
 /** End of testing pages */
 
 
@@ -161,33 +116,6 @@ router.get('/browse-location/:location', function(req, res, next) {
 
 router.get('/register', function(req, res, next){
 	res.render('register', {title: 'Register User'});
-});
-
-router.get('/login', function(req, res, next){
-	res.render('login', {title: 'Login'});
-});
-
-router.post('/login', function (req, res, next){
-	if (req.body.username){
-		// Query database for user. If user exists, allow login.
-		var query = client.query("SELECT * FROM Users WHERE username = '" + req.body.username + "';", function (error, result) {
-			if (error){ console.log(error);}
-			else {
-				if (result.rows.length > 0){	// A user exists with this name, successful login.
-					loggedUser = req.body.username;
-					cartSize = 0;
-					cart = [];
-					res.redirect('/browse');
-				}
-				else {	// No existing username, fail to log in.
-					res.render('login', {title: 'The Market', user:loggedUser, cart:cart.length, err: 'Username or password incorrect. Please try again.'});
-				}
-			}
-		});
-	} else {		// no username was passed in.
-		res.render('login', {title: 'The Market'});
-	}
-	
 });
 
 router.get('/browse/category', function(req, res, next){

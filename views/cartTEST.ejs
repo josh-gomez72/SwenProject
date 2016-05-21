@@ -10,14 +10,14 @@
 			<div class="well row">
 				<div class="col-xs-3">
 					<a href="/">
-						<img src=<%= cart[0].image[0] %> class="img-responsive thumbnail">
+						<img src=<%= cart[i].image[0] %> class="img-responsive thumbnail">
 					</a>
                 </div>
 				<div class="col-xs-9">
 					<div class="row">
 						<div class="col-xs-9">
 							<h2>
-								<a href="/"><%= cart[0].name %></a>
+								<a href="/"><%= cart[i].name %></a>
 							</h2>
 						</div>
 						<div class="col-xs-3 text-right">
@@ -25,10 +25,10 @@
 						</div>
 					</div>
 					<div class="col-xs-3">
-						<h3>Price: <small><%= cart[0].price %></small></h3>
+						<h3>Price: <small><%= cart[i].price %></small></h3>
 					</div>
 					<div class="col-xs-3">
-						<h3>Quantity: <small><%= cart[0].quantity %></small></h3>
+						<h3>Quantity: <small><%= cart[i].quantity %></small></h3>
 					</div>
 				</div>
 			</div>

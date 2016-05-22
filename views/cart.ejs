@@ -9,7 +9,7 @@
 			<div class="well row">
 				<div class="col-xs-3">
 					<a href="/">
-						<img src=<%= cart[i].image[0] %> class="img-responsive thumbnail">
+						<img src=<%= cart[i].image[0] %>  class="thumbnail" width="200" height="200">
 					</a>
                 </div>
 				<div class="col-xs-9">
@@ -32,9 +32,8 @@
 				</div>
 			</div>
 		<% } %>
-		<!-- <div id="itemList"></div> -->
 		<div class="text-right">
-            <h3>Total Cost:<strong> $<%= cost %>.00 </strong></h3>
+            <h3>Total Cost:<strong> $<%= cost.toFixed(2) %> </strong></h3>
 			<button type="button" onclick="payment()" method="get" class="btn btn-warning"><span class="glyphicon"></span>Continue to Checkout</button>
         </div>
     </div>
@@ -51,7 +50,7 @@
     function makeCartItem(item){
 		var out = ('<div class="well row"><div class="col-xs-3">' +
                 '<a href="'+item.link+'">'+
-                '<img src="'+item.images[0]+'" class="img-responsive thumbnail"></a>'+
+                '<img src="'+item.images[0]+'" class="thumbnail" width="200" height="200"></a>'+
                 '</div><div class="col-xs-9"><div class="row"><div class="col-xs-9">'+
                 '<h2><a href="'+item.link+'">'+item.name+'</a></h2></div>'+
                 '<div class="col-xs-3 text-right">' +
@@ -88,7 +87,7 @@
             contentType: "application/json",
             data: {itemid: itemid},
             success: function(response){
-                response = JSON.parse(response);
+                window.location.replace("/cart");
             }
         });
 	}

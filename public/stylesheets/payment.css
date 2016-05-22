@@ -1,28 +1,17 @@
-body {
-    background-color: #F3F4EC;
-    font-family: Montserrat;
-}
-
-.register-block {
+.paymentForm {
     width: 320px;
-    padding: 20px;
-    background-color: #507642;
-    color: #fff;
-    border-radius: 5px;
-    border-top: 5px solid #A37245;
-    margin: 0 auto;
+    margin-left: 20px;
 }
 
-.register-block h1 {
+.paymentForm h1 {
     text-align: center;
-    color: #fff;
+    color: #000;
     font-size: 18px;
     text-transform: uppercase;
     margin-top: 0;
     margin-bottom: 20px;
-    padding-left: 0px;
 }
-.register-block input{
+.paymentForm input{
     width: 100%;
     height: 42px;
     box-sizing: border-box;
@@ -34,6 +23,19 @@ body {
     padding: 0 20px 0 20px;
     outline: none;
 }
+.paymentForm select{
+    width: 40%;
+    height: 42px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-family: Montserrat;
+    padding: 0 20px 0 20px;
+    outline: none;
+}
+
 #submit {
     width: 100%;
     height: 40px;
@@ -52,10 +54,6 @@ body {
 }
 #submit:hover{
     background: #b47f4e;
-}
-
-a {
-    color: #fff;
 }
 
 @font-face {

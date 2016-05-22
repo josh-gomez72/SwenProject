@@ -17,7 +17,7 @@
     <div class="well">
         <h2>Payment Process</h2>
         <br><br>
-        <h2>Total cost is $<%= totalCost %></h2>
+        <h2>Total cost is $<%= totalCost.toFixed(2) %></h2>
         <div class = "paymentForm">
             <form action="payment/process" method="post" id="paymentForm"><br>
                 <input type="text" placeholder="Card Number" name="cardnum"><br>

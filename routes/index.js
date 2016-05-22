@@ -132,7 +132,7 @@ router.get('/removeFromCartTEST', function(req, res, next) {
 
 router.get('/payment', function(req, res, next) {
 	// ... show page requesting payment information (credit card & address)
-	res.render('payment');
+	res.render('payment', {totalCost: 30});
 });
 
 router.get('/purchaseTEST', function(req, res, next) {

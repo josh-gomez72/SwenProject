@@ -19,7 +19,7 @@
         <br><br>
         <h2>Total cost is $<%= totalCost %></h2>
         <div class = "paymentForm">
-            <form action="processPayment" method="post" id="paymentForm"><br>
+            <form action="payment/process" method="post" id="paymentForm"><br>
                 <input type="text" placeholder="Card Number" name="cardnum"><br>
                 <input type="text" placeholder="Name on Card" name="cardName"><br>
                 <label> Expiry Date</label><br>
@@ -51,11 +51,15 @@
                     <option value="2024">9</option>
                 </select>
                 <input type="text" placeholder="Security Code" name="securityCode"><br>
-				<input type="text" placeholder="Tom Jones" name="recipient"><br>
-				<input type="text" placeholder="11 Victoria Street" name="address"><br>
-				<input type="text" placeholder="Welligton" name="city"><br>
-				<input type="text" placeholder="0000" name="postcode"><br>
-				<input type="text" placeholder="021 123 4567" name="phone"><br>
+				<label>Delievery Details</label><br>
+				<input type="text" placeholder="Recipient Name" name="recipientName"><br>
+				<input type="text" placeholder="Recipient Email" name="recipientEmail"><br>
+				<input type="text" placeholder="Street Address" name="address"><br>
+				<input type="text" placeholder="City" name="city"><br>
+				<input type="text" placeholder="Postcode" name="postcode"><br>
+				<input type="text" placeholder="Phone Number" name="phone"><br>
+				<label>Preferred Delievery Date</label><br>
+				<input type="date" name="delivDate"><br>
                 <input id="submit" type="submit" value="Submit">
             </form>
 

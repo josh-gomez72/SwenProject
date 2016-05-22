@@ -12,6 +12,7 @@ var buy = require('./routes/buy');
 var cart = require('./routes/cart');
 var myListings = require('./routes/myListings');
 var wishList = require('./routes/wishList');
+var payment = require('./routes/payment');
 var categories = require('./routes/categories');
 var search = require('./routes/search');
 
@@ -41,6 +42,7 @@ app.use('/sell', sell);
 app.use('/cart', cart);
 app.use('/myListings', myListings);
 app.use('/wishlist', wishList);
+app.use('/payment', payment);
 app.use('/categories', categories);
 app.use('/search', search);
 

@@ -21,6 +21,10 @@ router.get('/login', function(req, res, next){
 	res.render('login', {title: 'Login'});
 });
 
+router.get('/payment', function(req, res, next){
+	res.render('payment', {totalCost: global.cost});
+});
+
 router.post('/login', function (req, res, next){
 	if (req.body.username){
 		// Query database for user. If user exists, allow login.

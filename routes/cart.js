@@ -19,7 +19,8 @@ router.get('/', function(req, res, next) {
 			console.log(cart[i].price + " .. " + cart[i].quantity);
 			cost += +(cart[i].price).replace(/[^\d.-]/g, '') * +cart[i].quantity;
 		}
-		
+		global.cost = cost;
+        
 		res.render('cart', {title: 'The Market', cart: cart, cost: cost});
 		
   });

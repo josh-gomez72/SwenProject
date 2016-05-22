@@ -5,6 +5,7 @@
     <link rel='stylesheet' href='/stylesheets/stylesheet.css' />
 </head>
 <body>
+<%- include navigation.ejs %>
    <ul>
       <% for (var i = 0; i < resultPlace.length; i++) { %>
 	<li> <%= resultPlace[i].name %> </li>

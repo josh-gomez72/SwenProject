@@ -33,15 +33,19 @@
 			</div>
 		<% } %>
 		<!-- <div id="itemList"></div> -->
-		<div text-right">
-			<button type="button" class="btn btn-warning"><span class="glyphicon"></span>$<%= cost %>.00</button>
-			<button type="button" class="btn btn-warning"><span class="glyphicon"></span>Continue to Checkout</button>
-		</div>
+		<div class="text-right">
+            <h3>Total Cost:<strong> $<%= cost %>.00 </strong></h3>
+			<button type="button" onclick="payment()" method="get" class="btn btn-warning"><span class="glyphicon"></span>Continue to Checkout</button>
+        </div>
     </div>
   </div>
 
 <script>
 	var cartItem = {name:"Plus",price:4.50, quantity: 3,link:"/", images: ["/images/add_image_icon.png"]};
+
+    function payment(){
+        window.location.href = "/payment";
+    }
 
     makeCartItem(cartItem);
     function makeCartItem(item){

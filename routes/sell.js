@@ -15,16 +15,30 @@ router.post('/uploadPhoto', upload.single('fileToUpload'), function(req, res) {
     console.log("file: " + JSON.stringify(req.file));
     var pipe = fs.createReadStream(req.file.path).pipe(fs.createWriteStream('../public/images/uploads/'+req.file.filename+".png"));
     pipe.on('finish', function () {
+        deleteImage(req.file.path);
         res.write("/images/uploads/"+req.file.filename+".png");
         res.end();
     });
-    fs.unlink(req.file.path, function(err) {
+    pipe.on('error', function(e){
+        console.log(e);
+        console.log("ERROR, trying new pipe");
+        var newPipe = fs.createReadStream("uploads/"+req.file.filename).pipe(fs.createWriteStream('public/images/uploads/'+req.file.filename+".png"));
+        newPipe.on('finish', function () {
+            deleteImage(req.file.path);
+            res.write("/images/uploads/"+req.file.filename+".png");
+            res.end();
+        });
+    });
+});
+
+function deleteImage(path){
+    fs.unlink(path, function(err) {
         if (err) {
             return console.error(err);
         }
         console.log("File deleted successfully!");
     });
-});
+}
 
 router.post('/', function(req,res){
     console.log("LIST: "+req.body.title);

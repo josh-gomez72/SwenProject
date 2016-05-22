@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/users', function(req, res, next) {
  // res.send('respond with a resource');
-  res.render('sell', { title: 'Farmers Market' });
+  res.render('sell', { title: 'The Market - Create Listing' });
 });
 
 module.exports = router;

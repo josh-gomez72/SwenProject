@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 		}
 		var userInfo = result.rows;
 		console.log(JSON.stringify(userInfo));
-		res.render('payment', {title: 'Cart', totalCost: global.cost, userInfo: userInfo});
+		res.render('payment', {title: 'The Market - Checkout', totalCost: global.cost, userInfo: userInfo});
 	});
 });
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Wishlist</title>
+    <title>The Market - Checkout</title>
     <script src="/javascripts/jquery-1.12.1.min.js"> </script>
     <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
@@ -59,7 +59,7 @@
 				<input type="text" placeholder="Postcode" name="postcode" value="<%= userInfo[0].postcode %>" required><br>
 				<input type="text" placeholder="Phone Number" name="phone" value="<%= userInfo[0].phone %>"><br>
 				<label>Preferred Delievery Date</label><br>
-				<input type="date" name="delivDate"><br>
+				<input type="date" name="delivDate" id="delivDate" min="2016-24-05" min="2016-31-05" required><br>
                 <input id="submit" type="submit" value="Submit">
             </form>
 

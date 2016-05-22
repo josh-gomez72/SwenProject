@@ -5,10 +5,10 @@ var email = require('../lib/email.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('myListings', {title: 'My Listings'});
+    res.render('myListings', {title: 'The Market - My Listings'});
 });
 router.get('/edit', function(req, res, next) {
-    res.render('edit', {title: 'My Listings'});
+    res.render('edit', {title: 'The Market - Edit Listing'});
 });
 
 router.post('/edit', function(req, res, next) {

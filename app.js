@@ -19,7 +19,7 @@ var search = require('./routes/search');
 var app = express();
 
 // Currently logged in user
-userID = 1;
+userID = -1;
 userName = null;
 cost = 0;
 

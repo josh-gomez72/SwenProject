@@ -12,10 +12,10 @@
     "ejs": "~2.3.3",
     "express": "~4.13.1",
     "morgan": "~1.6.1",
+    "multer": "*",
+    "nodemailer": "^2.4.1",
     "pg": "^4.5.5",
     "pg-native": "^1.10.0",
-    "serve-favicon": "~2.3.0",
-    "multer": "*",
-    "nodemailer": "*"
+    "serve-favicon": "~2.3.0"
   }
 }

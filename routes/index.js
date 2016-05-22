@@ -21,9 +21,9 @@ router.get('/login', function(req, res, next){
 	res.render('login', {title: 'Login'});
 });
 
-router.get('/payment', function(req, res, next){
-	res.render('payment', {title: 'Cart', totalCost: global.cost});
-});
+//router.get('/payment', function(req, res, next){
+//	res.render('payment', {title: 'Cart', totalCost: global.cost});
+//});
 
 router.post('/login', function (req, res, next){
 	if (req.body.username){

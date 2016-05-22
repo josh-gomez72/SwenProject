@@ -52,12 +52,12 @@
                 </select>
                 <input type="text" placeholder="Security Code" name="securityCode"><br>
 				<label>Delievery Details</label><br>
-				<input type="text" placeholder="Recipient Name" name="recipientName"><br>
-				<input type="text" placeholder="Recipient Email" name="recipientEmail"><br>
-				<input type="text" placeholder="Street Address" name="address"><br>
-				<input type="text" placeholder="City" name="city"><br>
-				<input type="text" placeholder="Postcode" name="postcode"><br>
-				<input type="text" placeholder="Phone Number" name="phone"><br>
+				<input type="text" placeholder="Recipient Name" name="recipientName" value="<%= userInfo[0].fname %> <%= userInfo[0].lname %>" required><br>
+				<input type="text" placeholder="Recipient Email" name="recipientEmail" value="<%= userInfo[0].email %>" required><br>
+				<input type="text" placeholder="Street Address" name="address" value="<%= userInfo[0].address %>" required><br>
+				<input type="text" placeholder="City" name="city" value="<%= userInfo[0].city %>" required><br>
+				<input type="text" placeholder="Postcode" name="postcode" value="<%= userInfo[0].postcode %>" required><br>
+				<input type="text" placeholder="Phone Number" name="phone" value="<%= userInfo[0].phone %>"><br>
 				<label>Preferred Delievery Date</label><br>
 				<input type="date" name="delivDate"><br>
                 <input id="submit" type="submit" value="Submit">

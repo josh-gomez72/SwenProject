@@ -2,9 +2,68 @@
 <html>
 <head>
     <title><%= title %></title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
     <link rel='stylesheet' href='/stylesheets/registerStyle.css' />
 </head>
 <body>
+<h1>The Market</h1>
+<p>New Zealand’s Online Community Farmer's Market</p>
+<nav class="navbar navbar-default">
+    <div class="container-fluid"> <!-- top nav section -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/browse">The Market</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/browse">Browse</a></li>
+            <li><a href="/sell">Sell</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="/wishlist"><span class="glyphicon glyphicon-star-empty"></span> My Wishlist </a></li>
+            <li><a href="/myListings"><span class="glyphicon glyphicon-tag"></span> My Listings </a></li>
+            <li><a href="/cartTest"><span class="glyphicon glyphicon-shopping-cart"></span> View Cart </a></li>
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        </ul>
+    </div> <!-- Close container fluid div-->
+    <div class="container-fluid search-nav"> <!-- bottom nav line -->
+        <div class="form-horizontal" role="search" id="search-form">
+            <div class="form-group">
+                <div class = "col-md-4">
+                    <input type="text" class="form-control" placeholder="Search" id="searchText">
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control" name="section_id" id="categories">
+                        <option>All Categories</option>
+                        <option>Bakery</option>
+                        <option>Dairy and Eggs</option>
+                        <option>Fruit</option>
+                        <option>Vegetables</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control" name="category_id">
+                        <option value="all">All Locations</option>
+                        <option value="auckland">Auckland</option>
+                        <option value="christchurch">Christchurch</option>
+                        <option value="dunedin">Dunedin</option>
+                        <option value="hamilton">Hamilton</option>
+                        <option value="napier-hastings">Napier-Hastings</option>
+                        <option value="nelson">Nelson</option>
+                        <option value="palmerston-north">Palmerston North</option>
+                        <option value="tauranga">Tauranga</option>
+                        <option value="wellington">Wellington</option>
+                        <option value="other-location">Other</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button onclick="runSearch()" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
 <div class = "register-block">
     <h1><%= title %></h1>
     <form action="login" method="post">

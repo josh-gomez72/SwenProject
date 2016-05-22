@@ -130,9 +130,9 @@ router.get('/removeFromCartTEST', function(req, res, next) {
 	res.redirect('cartTEST');
 });
 
-router.get('/paymentTEST', function(req, res, next) {
+router.get('/payment', function(req, res, next) {
 	// ... show page requesting payment information (credit card & address)
-	res.redirect('indexTEST');
+	res.render('payment');
 });
 
 router.get('/purchaseTEST', function(req, res, next) {

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wishlist</title>
+    <script src="/javascripts/jquery-1.12.1.min.js"> </script>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/payment.css">
+    <script src="/stylesheets/bootstrap/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<h1>The Market</h1>
+<p>New Zealand’s Online Community Farmer's Market</p>
+<nav class="navbar navbar-default">
+    <div class="container-fluid"> <!-- top nav section -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/browse">The Market</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/browse">Browse</a></li>
+            <li><a href="/sell">Sell</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="/wishlist"><span class="glyphicon glyphicon-star-empty"></span> My Wishlist </a></li>
+            <li><a href="/myListings"><span class="glyphicon glyphicon-tag"></span> My Listings </a></li>
+            <li><a href="/cartTest"><span class="glyphicon glyphicon-shopping-cart"></span> View Cart </a></li>
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        </ul>
+    </div> <!-- Close container fluid div-->
+    <div class="container-fluid search-nav"> <!-- bottom nav line -->
+        <div class="form-horizontal" role="search" id="search-form">
+            <div class="form-group">
+                <div class = "col-md-4">
+                    <input type="text" class="form-control" placeholder="Search" id="searchText">
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control" name="section_id" id="categories">
+                        <option>All Categories</option>
+                        <option>Bakery</option>
+                        <option>Dairy and Eggs</option>
+                        <option>Fruit</option>
+                        <option>Vegetables</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control" name="category_id">
+                        <option value="all">All Locations</option>
+                        <option value="auckland">Auckland</option>
+                        <option value="christchurch">Christchurch</option>
+                        <option value="dunedin">Dunedin</option>
+                        <option value="hamilton">Hamilton</option>
+                        <option value="napier-hastings">Napier-Hastings</option>
+                        <option value="nelson">Nelson</option>
+                        <option value="palmerston-north">Palmerston North</option>
+                        <option value="tauranga">Tauranga</option>
+                        <option value="wellington">Wellington</option>
+                        <option value="other-location">Other</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button onclick="runSearch()" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="well">
+        <h2>Payment Process</h2>
+        <br><br>
+        <div class = "paymentForm">
+            <form action="processPayment" method="post" id="paymentForm"><br>
+                <input type="text" placeholder="Card Number" name="cardnum"><br>
+                <input type="text" placeholder="Name on Card" name="cardName"><br>
+                <label> Expiry Date</label><br>
+                <select name = "expiryMonth">
+                    <option value="" disabled selected>Month</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+                <select name = "expiryYear">
+                    <option value="" disabled selected>Year</option>
+                    <option value="2016">1</option>
+                    <option value="2017">2</option>
+                    <option value="2018">3</option>
+                    <option value="2019">4</option>
+                    <option value="2020">5</option>
+                    <option value="2021">6</option>
+                    <option value="2022">7</option>
+                    <option value="2023">8</option>
+                    <option value="2024">9</option>
+                </select>
+                <input type="text" placeholder="Security Code" name="securityCode"><br>
+                <input id="submit" type="submit" value="Submit">
+            </form>
+
+        </div>
+    </div>
+</div>
+</body>
+<script>
+
+    var currentListingsJSON = [];
+    var currentListings = "";
+    var user = "";
+
+    init()
+    function init() {
+        $.ajax({
+            url: "/user",
+            type: "GET",
+            contentType: "application/json",
+            success: function(response){
+                console.log(response);
+                user = JSON.parse(response).username;
+                getListings();
+            }
+        });
+    }
+
+    function getListings(){
+        var out = {username:user};
+        $.ajax({
+            url: "/wishlist/items",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(out),
+            success: function (response) {
+                response = JSON.parse(response);
+                currentListingsJSON = response;
+                drawListings();
+            }
+        });
+    }
+
+    function makeListingItem(item, index){
+        var imagePath = "";
+        if (item.image != null) imagePath = item.image[0];
+
+        currentListings += '<div class="well deep row"><div class="col-xs-3">' +
+                '<a href="/buy?id='+item.itemid+'">'+
+                '<img src="'+imagePath+'" class="thumbnail" width="200" height="200"></a>'+
+                '</div><div class="col-xs-9"><div class="row"><div class="col-xs-9">'+
+                '<h2><a href="/buy?id='+item.itemid+'">'+item.name+'</a></h2></div>'+
+                '<div class="col-xs-3 text-right">' +
+                '<button type="button" onclick="removeListing('+index+')" class="btn btn-success market"><span class="glyphicon glyphicon-remove"></span> Remove</button>' +
+                '</div></div><div class="col-xs-3">'+
+                '<h3>Price: <small>'+item.price+'</small></h3>'+
+                '</div><div class="col-xs-3">'+
+                '<h3>Quantity: <small>'+item.stock+'</small></h3>'+
+                '</div>' +
+                '</div></div>';
+    }
+
+    function removeListing(index){
+        console.log("removing " + index);
+        var out = currentListingsJSON[index];
+        $.ajax({
+            url: "/wishlist/remove",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(out),
+            success: function(response){
+                currentListingsJSON.splice(index,1);
+                response = JSON.parse(response);
+                alert(response.message);
+                drawListings();
+            }
+        });
+    }
+
+    function runSearch(){
+        if ($("#categories").val() == '')$("#categories").val("All Categories");
+        console.log("Text: " + $("#searchText").val());
+        console.log("Category: " + $("#categories").val());
+        var out = "?";
+        if ($("#categories").val() != "All Categories") {
+            out +="p="+ $("#categories").val() + "&";
+        }
+        out +="s="+ $("#searchText").val();
+        window.location.href = "/search"+out;
+    }
+
+    function drawListings(){
+        currentListings = "";
+        for (i in currentListingsJSON){
+            makeListingItem(currentListingsJSON[i], i);
+        }
+        $("#itemList").html(currentListings);
+    }
+
+</script>
+
+</html>

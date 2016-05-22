@@ -41,7 +41,7 @@ router.post('/process', function(req, res, next){
 		}
 	});
 	/* ... */
-	res.redirect('/browse');
+	res.render('success', {title: 'The Market'});
 });
 
 module.exports = router;

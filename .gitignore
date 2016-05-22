@@ -26,6 +26,9 @@ build/Release
 # Dependency directory
 node_modules
 
+# Image dump
+public/images/uploads/
+
 # Optional npm cache directory
 .npm
 

@@ -69,74 +69,74 @@
 </body>
 <script>
 
-    var currentListingsJSON = [];
-    var currentListings = "";
-    var user = "";
-
-    init()
-    function init() {
-        $.ajax({
-            url: "/user",
-            type: "GET",
-            contentType: "application/json",
-            success: function(response){
-                console.log(response);
-                user = JSON.parse(response).username;
-                getListings();
-            }
-        });
-    }
-
-    function getListings(){
-        var out = {username:user};
-        $.ajax({
-            url: "/wishlist/items",
-            type: "POST",
-            contentType: "application/json",
-            data: JSON.stringify(out),
-            success: function (response) {
-                response = JSON.parse(response);
-                currentListingsJSON = response;
-                drawListings();
-            }
-        });
-    }
-
-    function makeListingItem(item, index){
-        var imagePath = "";
-        if (item.image != null) imagePath = item.image[0];
-
-        currentListings += '<div class="well deep row"><div class="col-xs-3">' +
-                '<a href="/buy?id='+item.itemid+'">'+
-                '<img src="'+imagePath+'" class="thumbnail" width="200" height="200"></a>'+
-                '</div><div class="col-xs-9"><div class="row"><div class="col-xs-9">'+
-                '<h2><a href="/buy?id='+item.itemid+'">'+item.name+'</a></h2></div>'+
-                '<div class="col-xs-3 text-right">' +
-                '<button type="button" onclick="removeListing('+index+')" class="btn btn-success market"><span class="glyphicon glyphicon-remove"></span> Remove</button>' +
-                '</div></div><div class="col-xs-3">'+
-                '<h3>Price: <small>'+item.price+'</small></h3>'+
-                '</div><div class="col-xs-3">'+
-                '<h3>Quantity: <small>'+item.stock+'</small></h3>'+
-                '</div>' +
-                '</div></div>';
-    }
-
-    function removeListing(index){
-        console.log("removing " + index);
-        var out = currentListingsJSON[index];
-        $.ajax({
-            url: "/wishlist/remove",
-            type: "POST",
-            contentType: "application/json",
-            data: JSON.stringify(out),
-            success: function(response){
-                currentListingsJSON.splice(index,1);
-                response = JSON.parse(response);
-                alert(response.message);
-                drawListings();
-            }
-        });
-    }
+//    var currentListingsJSON = [];
+//    var currentListings = "";
+//    var user = "";
+//
+//    init()
+//    function init() {
+//        $.ajax({
+//            url: "/user",
+//            type: "GET",
+//            contentType: "application/json",
+//            success: function(response){
+//                console.log(response);
+//                user = JSON.parse(response).username;
+//                getListings();
+//            }
+//        });
+//    }
+//
+//    function getListings(){
+//        var out = {username:user};
+//        $.ajax({
+//            url: "/wishlist/items",
+//            type: "POST",
+//            contentType: "application/json",
+//            data: JSON.stringify(out),
+//            success: function (response) {
+//                response = JSON.parse(response);
+//                currentListingsJSON = response;
+//                drawListings();
+//            }
+//        });
+//    }
+//
+//    function makeListingItem(item, index){
+//        var imagePath = "";
+//        if (item.image != null) imagePath = item.image[0];
+//
+//        currentListings += '<div class="well deep row"><div class="col-xs-3">' +
+//                '<a href="/buy?id='+item.itemid+'">'+
+//                '<img src="'+imagePath+'" class="thumbnail" width="200" height="200"></a>'+
+//                '</div><div class="col-xs-9"><div class="row"><div class="col-xs-9">'+
+//                '<h2><a href="/buy?id='+item.itemid+'">'+item.name+'</a></h2></div>'+
+//                '<div class="col-xs-3 text-right">' +
+//                '<button type="button" onclick="removeListing('+index+')" class="btn btn-success market"><span class="glyphicon glyphicon-remove"></span> Remove</button>' +
+//                '</div></div><div class="col-xs-3">'+
+//                '<h3>Price: <small>'+item.price+'</small></h3>'+
+//                '</div><div class="col-xs-3">'+
+//                '<h3>Quantity: <small>'+item.stock+'</small></h3>'+
+//                '</div>' +
+//                '</div></div>';
+//    }
+//
+//    function removeListing(index){
+//        console.log("removing " + index);
+//        var out = currentListingsJSON[index];
+//        $.ajax({
+//            url: "/wishlist/remove",
+//            type: "POST",
+//            contentType: "application/json",
+//            data: JSON.stringify(out),
+//            success: function(response){
+//                currentListingsJSON.splice(index,1);
+//                response = JSON.parse(response);
+//                alert(response.message);
+//                drawListings();
+//            }
+//        });
+//    }
 
     function runSearch(){
         if ($("#categories").val() == '')$("#categories").val("All Categories");
@@ -149,14 +149,14 @@
         out +="s="+ $("#searchText").val();
         window.location.href = "/search"+out;
     }
-
-    function drawListings(){
-        currentListings = "";
-        for (i in currentListingsJSON){
-            makeListingItem(currentListingsJSON[i], i);
-        }
-        $("#itemList").html(currentListings);
-    }
+//
+//    function drawListings(){
+//        currentListings = "";
+//        for (i in currentListingsJSON){
+//            makeListingItem(currentListingsJSON[i], i);
+//        }
+//        $("#itemList").html(currentListings);
+//    }
 
 </script>
 

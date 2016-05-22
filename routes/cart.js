@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 			console.error(error);
 			return;
 		}
-		//console.log(JSON.stringify(result.rows));
+
 		var cart = result.rows;
 		var cost = +0;
 		/* Calculate price */

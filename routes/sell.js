@@ -3,7 +3,7 @@ var router = express.Router();
 var multer = require('multer');
 var fs = require('fs');
 var client = require('../lib/db.js');
-
+var email = require('../lib/email.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -52,7 +52,6 @@ router.post('/', function(req,res){
     console.log("INPUT: " + input);
     client.query("INSERT INTO Items(name,description,category,price,image,stock,seller,parent_category)" +
         input, function(error, result){
-        // done();
         if (error){
             console.error('Failed to execute query');
             console.error(error);
@@ -61,6 +60,7 @@ router.post('/', function(req,res){
             return;
         }
         console.log("RESULT: " + JSON.stringify(result.rows));
+        email.sendMailForListing(req.body);
 
         res.write(JSON.stringify({success:true,message:"<span class='glyphicon glyphicon-floppy-saved'></span> <strong>Success!</strong> Item listed."}));
         res.end();

@@ -71,8 +71,13 @@
     <div class="well">
         <h1> My Wishlist </h1>
         <br><br>
+        <div class="text-center">
+            <div id="success" class="text-center alert alert-success" style="display:none"></div>
+            <div id="error" class="text-center alert alert-danger" style="display:none"></div>
+        </div>
         <div id="itemList"></div>
     </div>
+
 </div>
 </body>
 <script>
@@ -97,6 +102,10 @@
 
     function getListings(){
         var out = {username:user};
+        currentListings = '<div class="text-center">' +
+                '<div id="success0" class="text-center alert alert-success" style="display:none"></div>' +
+                '<div id="error0" class="text-center alert alert-danger" style="display:none"></div>' +
+                '</div>';
         $.ajax({
             url: "/wishlist/items",
             type: "POST",
@@ -125,8 +134,11 @@
                 '<h3>Price: <small>'+item.price+'</small></h3>'+
                 '</div><div class="col-xs-3">'+
                 '<h3>Quantity: <small>'+item.stock+'</small></h3>'+
-                '</div>' +
-                '</div></div>';
+                '</div></div></div>' +
+                '<div class="text-center">' +
+                '<div id="success'+index+'" class="text-center alert alert-success" style="display:none"></div>' +
+                '<div id="error'+index+'" class="text-center alert alert-danger" style="display:none"></div>' +
+                '</div>';
     }
 
     function removeListing(index){
@@ -140,10 +152,25 @@
             success: function(response){
                 currentListingsJSON.splice(index,1);
                 response = JSON.parse(response);
-                alert(response.message);
                 drawListings();
+                handleResponse(response, index-1);
             }
         });
+    }
+
+    function handleResponse(res, index){
+        if (index == -1) index = "";
+        var successID = "#success"+index;
+        var errorID = "#error"+index;
+        console.log("RES: " + JSON.stringify(res)+ " INDEX: " + successID);
+        if (res.success) {
+            $(successID).html(res.message);
+            $(successID).show(500).delay(2000).hide(500);
+        }
+        else {
+            $(errorID).html(res.message);
+            $(errorID).show(500).delay(2000).hide(500);
+        }
     }
 
     function runSearch(){

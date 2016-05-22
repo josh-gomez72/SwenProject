@@ -16,6 +16,6 @@
     "pg-native": "^1.10.0",
     "serve-favicon": "~2.3.0",
     "multer": "*",
-    "serve-favicon": "~2.3.0"
+    "nodemailer": "*"
   }
 }

@@ -22,7 +22,7 @@ router.get('/login', function(req, res, next){
 });
 
 router.get('/payment', function(req, res, next){
-	res.render('payment', {totalCost: global.cost});
+	res.render('payment', {title: 'Cart', totalCost: global.cost});
 });
 
 router.post('/login', function (req, res, next){

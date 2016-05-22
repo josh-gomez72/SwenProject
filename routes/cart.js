@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
 		}
 		global.cost = cost;
         
-		res.render('cart', {title: 'The Market', cart: cart, cost: cost});
+		res.render('cart', {title: 'Cart', cart: cart, cost: cost});
 		
   });
 });
@@ -96,6 +96,21 @@ router.post('/addItem', function(req, res, next) {
 
 router.get('/removeItem', function(req, res, next) {
 	var itemid = req.query.itemid;
+	//Find existing item in db and cart
+	var query = "SELECT * FROM Cart, Items WHERE Cart.userid=" + global.userID + " AND Items.itemid=Cart.itemid AND Cart.itemid='"+ itemid +"';";
+	client.query(query, function(error, result){
+        if (error){ console.error('Failed to execute query');}
+		var inventory = result.rows;
+		// Add cart quantity to item quantity.
+		var update = "UPDATE Items SET stock = '" + (+inventory[0].quantity + +inventory[0].stock) + "' WHERE itemid = '" + itemid + "';";
+		console.log(update);
+			client.query(update, function(error, result){
+				if (error){ console.error(error); }
+			});
+    });
+	// add quantity from cart back into database
+	
+	// remove item from cart
     var query = "DELETE FROM Cart WHERE itemid = " + itemid + " AND userid = " + global.userID + " ";
     console.log("QUERY: " + query);
     client.query(query, function(error, result){

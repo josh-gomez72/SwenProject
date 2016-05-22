@@ -5,7 +5,18 @@ var email = require('../lib/email.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	res.render('payment', {title: 'Cart', totalCost: global.cost});
+	/* Need to retrieve data for autofill */
+	var query = "SELECT * FROM Users WHERE id='" + global.userID + "';";
+	client.query(query, function(error, result){
+		if (error){
+			console.error('Failed to execute query');
+			console.error(error);
+			return;
+		}
+		var userInfo = result.rows;
+		console.log(JSON.stringify(userInfo));
+		res.render('payment', {title: 'The Market - Checkout', totalCost: global.cost, userInfo: userInfo});
+	});
 });
 
 router.post('/process', function(req, res, next){
@@ -24,9 +35,16 @@ router.post('/process', function(req, res, next){
 		
 	});
 	/* Code for removing from cart database */
-	/* Kirsty's Code */
+	var deleteCart = "DELETE FROM Cart WHERE userid=" + global.userID + ";";
+	client.query(deleteCart, function(error, result){
+		if (error){
+			console.error('Failed to execute query');
+			console.error(error);
+			return;
+		}
+	});
 	/* ... */
-	res.redirect('/browse');
+	res.render('success', {title: 'The Market'});
 });
 
 module.exports = router;

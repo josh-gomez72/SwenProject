@@ -7,7 +7,7 @@ var email = require('../lib/email.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('sell', { title: 'Farmers Market' });
+    res.render('sell', { title: 'The Market - Create Listing' });
 });
 
 var upload = multer({dest: './uploads/'});

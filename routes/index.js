@@ -21,9 +21,9 @@ router.get('/login', function(req, res, next){
 	res.render('login', {title: 'Login'});
 });
 
-router.get('/payment', function(req, res, next){
-	res.render('payment', {title: 'Cart', totalCost: global.cost});
-});
+//router.get('/payment', function(req, res, next){
+//	res.render('payment', {title: 'Cart', totalCost: global.cost});
+//});
 
 router.post('/login', function (req, res, next){
 	if (req.body.username){
@@ -53,7 +53,7 @@ router.get('/user', function(req, res, next) {
 });
 
 router.get('/browse', function(req, res, next) {
-  res.render('browse', {title: 'Browse', resultPlace: {}});
+  res.render('browse', {title: 'The Market - Browse', resultPlace: {}});
 });
 
 /**
@@ -65,11 +65,11 @@ router.get('/browse/:catagory', function(req, res, next) {
 
 router.get('/browse-location/:location', function(req, res, next) {
 	var header = 'Browse in ' + req.params.location;
-	res.render('browse', {title: 'Browse'});
+	res.render('browse', {title: 'The Market - Browse'});
 });
 
 router.get('/register', function(req, res, next){
-	res.render('register', {title: 'Register User'});
+	res.render('register', {title: 'The Market - Register'});
 });
 
 router.get('/browse/category', function(req, res, next){
@@ -80,7 +80,7 @@ router.get('/browse/category', function(req, res, next){
 		if (error){ console.log(error);}
 		else {
 			console.log(result.rows)
-			res.render('browseCategory', {title: 'List of items', resultPlace: result.rows});
+			res.render('browseCategory', {title: 'The Market - Browse', resultPlace: result.rows});
 			}
 	}		
 	);

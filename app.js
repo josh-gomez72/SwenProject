@@ -21,7 +21,7 @@ var app = express();
 // Currently logged in user
 userID = -1;
 userName = null;
-cost = -1;
+cost = 0;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -21,21 +21,21 @@
             <a class="navbar-brand" href="/browse">The Market</a>
         </div>
         <ul class="nav navbar-nav">
-			<% if (title == 'Browse') { %><li class="active">
+			<% if (title == 'The Market - Search'|| title == 'The Market - Browse') { %><li class="active">
 			<% } else { %><li><% } %>
             <a href="/browse">Browse</a></li>
-			<% if (title == 'Sell') { %><li class="active">
+			<% if (title == 'The Market - Create Listing') { %><li class="active">
 			<% } else { %><li><% } %>
             <a href="/sell">Sell</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-			<% if (title == 'My Wishlist') { %><li class="active">
+			<% if (title == 'The Market - Wishlist') { %><li class="active">
 			<% } else { %><li><% } %>
             <a href="/wishlist"><span class="glyphicon glyphicon-star-empty"></span> My Wishlist </a></li>
-			<% if (title == 'My Listings') { %><li class="active">
+			<% if (title == 'The Market - My Listings' || title == 'The Market - Edit Listing') { %><li class="active">
 			<% } else { %><li><% } %>
             <a href="/myListings"><span class="glyphicon glyphicon-tag"></span> My Listings </a></li>
-			<% if (title == 'Cart') { %><li class="active">
+			<% if (title == 'The Market - Checkout' || title == 'The Market - Cart') { %><li class="active">
 			<% } else { %><li><% } %>
             <a href="/cart"><span class="glyphicon glyphicon-shopping-cart"></span> View Cart </a></li>
             <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>

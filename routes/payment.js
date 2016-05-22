@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var client = require('../lib/db.js');
+var email = require('../lib/email.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -17,8 +18,10 @@ router.post('/process', function(req, res, next){
 			console.error(error);
 			return;
 		}
-		//console.log(JSON.stringify(result.rows));
 		var cart = result.rows;
+
+		email.sendMailProcessCart(req.body, cart);
+		
 	});
 	/* Code for removing from cart database */
 	/* Kirsty's Code */

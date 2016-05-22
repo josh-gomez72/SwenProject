@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head><title>The Market</title></head>
+  <body>
+  <%- include navigation.ejs %>
+  <div class="container">
+    <div class="well">
+        <h1><strong> Success! </strong></h1>
+		<div>
+            <h4>You have successfully purchased the items in your cart. An email receipt has been sent.</h4>
+		</div>
+		<div class="text-right">
+			<button type="button" onclick="browse()" method="get" class="btn btn-warning"><span class="glyphicon"></span>Return to Browse</button>
+        </div>
+    </div>
+  </div>
+
+<script>
+    function browse(){
+        window.location.href = "/browse";
+    }
+</script>
+  </body>
+</html>

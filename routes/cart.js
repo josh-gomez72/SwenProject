@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
 		}
 		global.cost = cost;
         
-		res.render('cart', {title: 'The Market', cart: cart, cost: cost});
+		res.render('cart', {title: 'Cart', cart: cart, cost: cost});
 		
   });
 });

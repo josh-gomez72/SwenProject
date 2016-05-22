@@ -5,7 +5,7 @@ var client = require('../lib/db.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render("search", {title: 'Search'});
+    res.render("search", {title: 'The Market - Search'});
 });
 
 router.post('/', function(req, res, next) {

@@ -5,7 +5,7 @@ var client = require('../lib/db.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('wishlist', {title: 'Wishlist'});
+    res.render('wishlist', {title: 'The Market - Wishlist'});
 });
 
 router.post('/remove', function(req, res, next) {

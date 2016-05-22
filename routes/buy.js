@@ -5,7 +5,7 @@ var email = require('../lib/email.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('buy', { title: 'Farmers Market' });
+    res.render('buy', { title: 'The Market - Browse' });
 });
 
 router.post('/item', function(req,res,next){
